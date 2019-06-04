@@ -1,6 +1,30 @@
-# BigPet Store
+# SKBDA BDA, Hands-on Labs
 
-Software stack:
+## Data Flow
+
+![Data flow](sdp_labs.png)
+
+1. Source
+- Kafka Client (Producer)
+- Avro message
+
+2. Message Broker (Kafka)
+
+3. Stream Processing
+- Apache Flink
+- Apache Spark
+- Kafka Streams
+
+4. Data Store
+- RDBMS
+- S3 (minio)
+- KV
+
+5. Data processing and analytics
+- Python (jupyter notebook)
+- SQL (Hive, Presto, etc...)
+
+## Software stack
 ```
 Zookeeper version: 3.4.9
 Kafka version: 1.1.1 (Confluent 4.1.2)
@@ -20,7 +44,7 @@ Load gen:
 - https://github.com/apache/bigtop/tree/master/bigtop-bigpetstore/bigpetstore-transaction-queue
 - https://www.slideshare.net/FlinkForward/suneel-marthi-bigpetstore-flink-a-comprehensive-blueprint-for-apache-flink
 
-## Kafka
+## Stream Data Platform
 
 ### Setup Kafka cluster via Docker
 ```
@@ -71,6 +95,7 @@ http://localhost:8080/kadmin/
 ### Sanity check
 * CLI
 ```
+# Basic Ops
 $ export KAFKA_BROKER=$(docker ps --filter name=kafka1 --format={{.ID}})
 $ docker exec -t -i "$KAFKA_BROKER" \
 kafka-topics --create --topic foo --partitions 4 --replication-factor 1 \
@@ -99,6 +124,22 @@ bash -c "seq 100 | kafka-console-producer --request-required-acks 1 \
 
 $ docker exec -t -i "$KAFKA_BROKER" \
 kafka-console-consumer --bootstrap-server kafka1:19092 --topic foo --from-beginning --max-messages 100
+
+```
+
+Kafka topic for labs:
+```
+$ export KAFKA_BROKER=$(docker ps --filter name=kafka1 --format={{.ID}})
+
+# topic1
+$ docker exec -t -i "$KAFKA_BROKER" \
+kafka-topics --create --topic topic1 --partitions 4 --replication-factor 1 \
+--if-not-exists --zookeeper zoo1:2181
+
+# eventcall
+$ docker exec -t -i "$KAFKA_BROKER" \
+kafka-topics --create --topic topic1 --partitions 4 --replication-factor 1 \
+--if-not-exists --zookeeper zoo1:2181
 
 ```
 
@@ -363,24 +404,4 @@ EventCall message:
 }
 ```
 
-## Data Flow
-
-1. Source (Data Gen)
-- Kafka Client (Producer)
-- Avro message
-
-2. Message Broker (Kafka)
-
-3. Stream Processing
-- Apache Flink
-- Apache Spark
-- Kafka Streams
-
-4. Data Store
-- RDBMS
-- S3 (minio)
-- KV
-
-5. Data processing and analytics
-- Python (jupyter notebook)
-- SQL (Hive, Presto, etc...)
+## Data Processing
