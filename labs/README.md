@@ -27,28 +27,20 @@
 ## Software stack
 ```
 Zookeeper version: 3.4.9
-Kafka version: 1.1.1 (Confluent 4.1.2)
-Kafka Schema Registry: Confluent 4.1.2
-Kafka Schema Registry UI: 0.9.4
-Kafka Rest Proxy: Confluent 4.1.2
-Kafka Topics UI: 0.9.3
-Kafka Connect: Confluent 4.1.2
-Kafka Connect UI: 0.9.4
-Zoonavigator: 0.4.0
+Kafka version: 1.1.1
+Kafka Schema Registry 4.1.2
+Kafka Schema Registry UI 0.9.4
+Kafka Rest Proxy 4.1.2
 ```
 
 Tools:
-- https://github.com/BetterCloud/kadmin.git
-
-Load gen:
-- https://github.com/apache/bigtop/tree/master/bigtop-bigpetstore/bigpetstore-transaction-queue
-- https://www.slideshare.net/FlinkForward/suneel-marthi-bigpetstore-flink-a-comprehensive-blueprint-for-apache-flink
+- kadmin, https://github.com/BetterCloud/kadmin
 
 ## Stream Data Platform
 
 ### Setup Kafka cluster via Docker
 ```
-git clone https://github.com/simplesteph/kafka-stack-docker-compose.git
+git clone https://github.com/youngwookim/kafka-stack-docker-compose
 cd kafka-stack-docker-compose
 git tag -l
 git checkout tags/v4.1.2
@@ -79,18 +71,8 @@ docker ps --filter name=kafka1 --format={{.ID}}
 ```
 
 Networking of (Kafka) docker compose:
-- https://github.com/wurstmeister/kafka-docker/wiki/Connectivity
-
-Running kadmin (on localhost):
-```
-git clone https://github.com/BetterCloud/kadmin.git -b skbdc2019
-cd kadmin
-cd dist
-cp ../application.properties .
-java -jar shared-kafka-admin-micro-*.jar --spring.profiles.active=kadmin,local
-```
-
-http://localhost:8080/kadmin/
+![Kafka Docker network](https://github.com/wurstmeister/kafka-docker/wiki/kafka-single-broker.png)
+https://github.com/wurstmeister/kafka-docker/wiki/Connectivity
 
 ### Sanity check
 * CLI
@@ -98,7 +80,7 @@ http://localhost:8080/kadmin/
 # Basic Ops
 $ export KAFKA_BROKER=$(docker ps --filter name=kafka1 --format={{.ID}})
 $ docker exec -t -i "$KAFKA_BROKER" \
-kafka-topics --create --topic foo --partitions 4 --replication-factor 1 \
+kafka-topics --create --topic foo --partitions 1 --replication-factor 1 \
 --if-not-exists --zookeeper zoo1:2181
 
 $ docker exec -t -i "$KAFKA_BROKER" \
@@ -106,7 +88,7 @@ kafka-topics --create --topic hello --partitions 4 --replication-factor 1 \
 --if-not-exists --zookeeper zoo1:2181
 
 $ docker exec -t -i "$KAFKA_BROKER" \
-kafka-topics --create --topic world --partitions 4 --replication-factor 1 \
+kafka-topics --create --topic world --partitions 8 --replication-factor 1 \
 --if-not-exists --zookeeper zoo1:2181
 
 $ docker exec -t -i "$KAFKA_BROKER" \
@@ -120,14 +102,25 @@ kafka-topics --describe --topic world --zookeeper zoo1:2181
 
 $ docker exec -t -i "$KAFKA_BROKER" \
 bash -c "seq 100 | kafka-console-producer --request-required-acks 1 \
---broker-list kafka1:19092 --topic foo && echo 'Produced 100 messages.'"
+--broker-list kafka1:9092 --topic foo && echo 'Produced 100 messages.'"
 
 $ docker exec -t -i "$KAFKA_BROKER" \
-kafka-console-consumer --bootstrap-server kafka1:19092 --topic foo --from-beginning --max-messages 100
+kafka-console-consumer --bootstrap-server kafka1:9092 --topic foo --from-beginning --max-messages 100
 
 ```
 
-Kafka topic for labs:
+or
+```
+$ docker ps --filter name=kafka1 --format={{.ID}}
+c832ec907848
+
+$  docker exec -t -i c832ec907848 bash -l
+
+# ......
+
+```
+
+Kafka topic for test:
 ```
 $ export KAFKA_BROKER=$(docker ps --filter name=kafka1 --format={{.ID}})
 
@@ -144,6 +137,18 @@ kafka-topics --create --topic topic1 --partitions 4 --replication-factor 1 \
 ```
 
 * Web (kadmin)
+https://github.com/BetterCloud/kadmin
+
+Running kadmin (on localhost):
+```
+git clone https://github.com/youngwookim/kadmin
+cd kadmin
+cd dist
+cp ../application.properties .
+java -jar shared-kafka-admin-micro-*.jar --spring.profiles.active=kadmin,local
+```
+
+http://localhost:8080/kadmin/
 
 1. Basic producer
 

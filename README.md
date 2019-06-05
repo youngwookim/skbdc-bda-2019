@@ -40,15 +40,19 @@ OS name: "mac os x", version: "10.14.1", arch: "x86_64", family: "mac"
 $ python --version
 Python 2.7.10
 
+# IP address
+$ ifconfig
+
 ```
 
 ## Hands-on Labs
+https://github.com/youngwookim/skbdc-bda-2019
 ```
-$ cd /path/to
+$ cd /path/to/workspace
 $ git clone https://github.com/youngwookim/skbdc-bda-2019.git
 $ cd skbdc-bda-2019
 $ ls -als
 
 ```
 
-labs/README.md
+labs/README.md or https://github.com/youngwookim/skbdc-bda-2019/tree/master/labs
