@@ -40,10 +40,8 @@ Tools:
 
 ### Setup Kafka cluster via Docker
 ```
-git clone https://github.com/youngwookim/kafka-stack-docker-compose
+git clone https://github.com/youngwookim/kafka-stack-docker-compose -b skbda2019
 cd kafka-stack-docker-compose
-git tag -l
-git checkout tags/v4.1.2
 
 docker-compose -f full-stack.yml up
 docker ps
@@ -71,6 +69,7 @@ docker ps --filter name=kafka1 --format={{.ID}}
 ```
 
 Networking of (Kafka) docker compose:
+
 ![Kafka Docker network](https://github.com/wurstmeister/kafka-docker/wiki/kafka-single-broker.png)
 https://github.com/wurstmeister/kafka-docker/wiki/Connectivity
 
@@ -141,7 +140,8 @@ https://github.com/BetterCloud/kadmin
 
 Running kadmin (on localhost):
 ```
-git clone https://github.com/youngwookim/kadmin
+cd /path/to/workspace
+git clone https://github.com/youngwookim/kadmin.git
 cd kadmin
 cd dist
 cp ../application.properties .
@@ -407,6 +407,71 @@ EventCall message:
     "value": "f7d7e7c5-1a1f-4d2a-9ae0-ce07e83907fa"
   }]
 }
+```
+
+## Data Source
+NASDAQ symbols:
+- https://datahub.io/core/nasdaq-listings
+
+nasdaq-listed
+- https://datahub.io/core/nasdaq-listings/r/nasdaq-listed.csv
+nasdaq-listed-symbols
+- https://datahub.io/core/nasdaq-listings/r/nasdaq-listed-symbols.csv
+
+
+IEX Trading API, https://iextrading.com/developer/docs/
+The IEX API is a set of services offered by The Investors Exchange (IEX)
+to provide access to data from the Exchange to developers and engineers for free.
+
+https://github.com/WojciechZankowski/iextrading4j
+
+
+IEX trading, quote:
+```
+private final String symbol;
+    private final String companyName;
+    private final String primaryExchange;
+    private final String sector;
+    private final String calculationPrice;
+    private final BigDecimal open;
+    private final Long openTime;
+    private final BigDecimal close;
+    private final Long closeTime;
+    private final BigDecimal high;
+    private final BigDecimal low;
+    private final BigDecimal latestPrice;
+    private final String latestSource;
+    private final String latestTime;
+    private final Long latestUpdate;
+    private final BigDecimal latestVolume;
+    private final BigDecimal iexRealtimePrice;
+    private final BigDecimal iexRealtimeSize;
+    private final Long iexLastUpdated;
+    private final BigDecimal delayedPrice;
+    private final Long delayedPriceTime;
+    private final BigDecimal extendedPrice;
+    private final BigDecimal extendedChange;
+    private final BigDecimal extendedChangePercent;
+    private final Long extendedPriceTime;
+    private final BigDecimal previousClose;
+    private final BigDecimal change;
+    private final BigDecimal changePercent;
+    private final BigDecimal iexMarketPercent;
+    private final BigDecimal iexVolume;
+    private final BigDecimal avgTotalVolume;
+    private final BigDecimal iexBidPrice;
+    private final BigDecimal iexBidSize;
+    private final BigDecimal iexAskPrice;
+    private final BigDecimal iexAskSize;
+    private final BigDecimal marketCap;
+    private final BigDecimal peRatio;
+    private final BigDecimal week52High;
+    private final BigDecimal week52Low;
+    private final BigDecimal ytdChange;
+    private final BigDecimal bidPrice;
+    private final BigDecimal bidSize;
+    private final BigDecimal askPrice;
+    private final BigDecimal askSize;
 ```
 
 ## Data Processing

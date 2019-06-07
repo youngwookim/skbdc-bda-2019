@@ -1,0 +1,16 @@
+{
+  "type":"record",
+  "name":"IexTrading",
+  "namespace":"com.example.avro",
+  "doc": "This is a Avro schema for IEX Trading API",
+  "fields":[
+    {
+      "name":"symbol",
+      "type":"string" 
+    },
+    {
+      "name":"companyName",
+      "type": ["null", "string"] 
+    }
+  ]
+}
