@@ -10,7 +10,9 @@
     },
     {
       "name":"companyName",
-      "type": ["null", "string"] 
+      "type": ["null", "string"],
+      "avro.java.string":"String",
+      "doc":"Company Name"
     }
   ]
 }

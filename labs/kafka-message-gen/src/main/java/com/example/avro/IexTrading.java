@@ -16,7 +16,7 @@ import org.apache.avro.message.SchemaStore;
 @org.apache.avro.specific.AvroGenerated
 public class IexTrading extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
   private static final long serialVersionUID = -319107827241929004L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"IexTrading\",\"namespace\":\"com.example.avro\",\"doc\":\"This is a Avro schema for IEX Trading API\",\"fields\":[{\"name\":\"symbol\",\"type\":\"string\"},{\"name\":\"companyName\",\"type\":[\"null\",\"string\"]}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"IexTrading\",\"namespace\":\"com.example.avro\",\"doc\":\"This is a Avro schema for IEX Trading API\",\"fields\":[{\"name\":\"symbol\",\"type\":\"string\"},{\"name\":\"companyName\",\"type\":[\"null\",\"string\"],\"doc\":\"Company Name\",\"avro.java.string\":\"String\"}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
@@ -73,6 +73,7 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
   }
 
   @Deprecated public java.lang.CharSequence symbol;
+  /** Company Name */
   @Deprecated public java.lang.CharSequence companyName;
 
   /**
@@ -85,7 +86,7 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
   /**
    * All-args constructor.
    * @param symbol The new value for symbol
-   * @param companyName The new value for companyName
+   * @param companyName Company Name
    */
   public IexTrading(java.lang.CharSequence symbol, java.lang.CharSequence companyName) {
     this.symbol = symbol;
@@ -132,7 +133,7 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
 
   /**
    * Gets the value of the 'companyName' field.
-   * @return The value of the 'companyName' field.
+   * @return Company Name
    */
   public java.lang.CharSequence getCompanyName() {
     return companyName;
@@ -141,6 +142,7 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
 
   /**
    * Sets the value of the 'companyName' field.
+   * Company Name
    * @param value the value to set.
    */
   public void setCompanyName(java.lang.CharSequence value) {
@@ -188,6 +190,7 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
     implements org.apache.avro.data.RecordBuilder<IexTrading> {
 
     private java.lang.CharSequence symbol;
+    /** Company Name */
     private java.lang.CharSequence companyName;
 
     /** Creates a new Builder */
@@ -269,6 +272,7 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
 
     /**
       * Gets the value of the 'companyName' field.
+      * Company Name
       * @return The value.
       */
     public java.lang.CharSequence getCompanyName() {
@@ -278,6 +282,7 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
 
     /**
       * Sets the value of the 'companyName' field.
+      * Company Name
       * @param value The value of 'companyName'.
       * @return This builder.
       */
@@ -290,6 +295,7 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
 
     /**
       * Checks whether the 'companyName' field has been set.
+      * Company Name
       * @return True if the 'companyName' field has been set, false otherwise.
       */
     public boolean hasCompanyName() {
@@ -299,6 +305,7 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
 
     /**
       * Clears the value of the 'companyName' field.
+      * Company Name
       * @return This builder.
       */
     public com.example.avro.IexTrading.Builder clearCompanyName() {

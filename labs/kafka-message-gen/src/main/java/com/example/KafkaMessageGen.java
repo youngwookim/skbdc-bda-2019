@@ -7,15 +7,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
+
 import com.example.avro.IexTrading;
 import com.opencsv.CSVParser;
 import com.opencsv.CSVReader;
+
 import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 import pl.zankowski.iextrading4j.api.stocks.Quote;
 import pl.zankowski.iextrading4j.client.IEXApiClient;
@@ -56,11 +59,15 @@ public class KafkaMessageGen {
 				final IEXApiClient iexTradingClient = IEXTradingClient.create();
 
 				IexTrading iex = new IexTrading();
+				iex.setSymbol(symbol);
 				try {
 					final Quote quote = iexTradingClient
 							.executeRequest(new QuoteRequestBuilder().withSymbol(symbol).build());
-					iex.setSymbol(quote.getSymbol());
-					iex.setCompanyName(quote.getCompanyName());
+					if (quote == null) {
+						iex.setCompanyName(null);
+					} else {
+						iex.setCompanyName(quote.getCompanyName());
+					}
 				} catch (Exception e) {
 					// ignore unknown symbol or network errors
 					e.printStackTrace();
