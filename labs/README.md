@@ -1,9 +1,9 @@
 # SKBDA BDA, Hands-on Labs
 
-* [Dataflow](#data_flow)
-* [Software Stack](#software_stack)
-* [Stream Data Platform](#Stream_Data_Platform)
-  * [Setup Kafka cluster via Docker](#Setup_Kafka_cluster_via_Docker)
+* [Dataflow](#data-flow)
+* [Software Stack](#software-stack)
+* [Stream Data Platform](#stream-data-platform)
+  * [Setup Kafka cluster via Docker](#setup-kafka-cluster-via-docker)
 
 ## Data Flow
 
