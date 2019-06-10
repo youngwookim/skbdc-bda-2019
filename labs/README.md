@@ -1,5 +1,7 @@
 # SKBDA BDA, Hands-on Labs
 
+1. [Dataflow](#data_flow)
+
 ## Data Flow
 
 ![Data flow](sdp_labs.png)
@@ -40,7 +42,7 @@ Tools:
 
 ### Setup Kafka cluster via Docker
 ```
-git clone https://github.com/youngwookim/kafka-stack-docker-compose -b skbda2019
+git clone https://github.com/youngwookim/kafka-stack-docker-compose.git -b skbda2019
 cd kafka-stack-docker-compose
 
 docker-compose -f full-stack.yml up
@@ -68,10 +70,8 @@ docker ps --filter name=kafka1 --format={{.ID}}
 
 ```
 
-Networking of (Kafka) docker compose:
-
 ![Kafka Docker network](https://github.com/wurstmeister/kafka-docker/wiki/kafka-single-broker.png)
-https://github.com/wurstmeister/kafka-docker/wiki/Connectivity
+Networking of (Kafka) docker compose, https://github.com/wurstmeister/kafka-docker/wiki/Connectivity
 
 ### Sanity check
 * CLI
@@ -415,9 +415,26 @@ NASDAQ symbols:
 
 nasdaq-listed
 - https://datahub.io/core/nasdaq-listings/r/nasdaq-listed.csv
+```
+Field information
+Field Name	Order	Type (Format)	Description
+Symbol	1	string
+Company Name	2	string
+Security Name	3	string
+Market Category	4	string
+Test Issue	5	string
+Financial Status	6	string
+Round Lot Size	7	number
+```
+
 nasdaq-listed-symbols
 - https://datahub.io/core/nasdaq-listings/r/nasdaq-listed-symbols.csv
-
+```
+Field information
+Field Name	Order	Type (Format)	Description
+Symbol	1	string
+Company Name	2	string
+```
 
 IEX Trading API, https://iextrading.com/developer/docs/
 The IEX API is a set of services offered by The Investors Exchange (IEX)
@@ -426,9 +443,9 @@ to provide access to data from the Exchange to developers and engineers for free
 https://github.com/WojciechZankowski/iextrading4j
 
 
-IEX trading, quote:
+IEX trading, "Quote":
 ```
-private final String symbol;
+    private final String symbol;
     private final String companyName;
     private final String primaryExchange;
     private final String sector;
