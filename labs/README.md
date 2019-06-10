@@ -4,6 +4,9 @@
 * [Software Stack](#software-stack)
 * [Stream Data Platform](#stream-data-platform)
   * [Setup Kafka cluster via Docker](#setup-kafka-cluster-via-docker)
+* [Sanity check](#sanity-check)
+* [Data Source](#data-source)
+* [Data Processing](#data-processing)
 
 ## Data Flow
 
@@ -74,6 +77,7 @@ docker ps --filter name=kafka1 --format={{.ID}}
 ```
 
 ![Kafka Docker network](https://github.com/wurstmeister/kafka-docker/wiki/kafka-single-broker.png)
+
 Networking of (Kafka) docker compose, https://github.com/wurstmeister/kafka-docker/wiki/Connectivity
 
 ### Sanity check
