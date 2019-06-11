@@ -416,6 +416,12 @@ EventCall message:
 }
 ```
 
+* Kafka Manager
+A tool for managing Apache Kafka.
+- https://github.com/yahoo/kafka-manager
+
+http://localhost:9090 (9000 -> 9090)
+
 ## Data Source
 NASDAQ symbols:
 - https://datahub.io/core/nasdaq-listings
@@ -450,7 +456,7 @@ to provide access to data from the Exchange to developers and engineers for free
 https://github.com/WojciechZankowski/iextrading4j
 
 
-IEX trading, "Quote":
+IEX trading, "Quote -- 주식시세":
 ```
     private final String symbol;
     private final String companyName;
@@ -498,4 +504,152 @@ IEX trading, "Quote":
     private final BigDecimal askSize;
 ```
 
+Avro schema:
+```
+{
+  "type":"record",
+  "name":"IexTrading",
+  "namespace":"com.example.avro",
+  "doc": "Avro schema for IEX Trading API",
+  "fields":[
+    {
+      "name":"symbol",
+      "type":"string",
+      "doc":"Stock Symbol"
+    },
+    {
+      "name":"companyName",
+      "type": ["null", "string"],
+      "avro.java.string":"String",
+      "doc":"Company Name"
+    },
+    {
+      "name":"primaryExchange",
+      "type": ["null", "string"],
+      "avro.java.string":"String"
+    },
+    {
+      "name":"sector",
+      "type": ["null", "string"],
+      "avro.java.string":"String"
+    },
+    {
+      "name":"calculationPrice",
+      "type": ["null", "string"],
+      "avro.java.string":"String"
+    },
+    {
+      "name":"open",
+      "type" : ["null", "long"]
+    },
+    {
+      "name":"openTime",
+      "type": ["null", "long"]
+    },
+    {
+      "name":"close",
+      "type" : ["null", "long"]
+    },
+    {
+      "name":"closeTime",
+      "type": ["null", "long"]
+    },
+    {
+      "name":"high",
+      "type" : ["null", "long"]
+    },
+    {
+      "name":"low",
+      "type" : ["null", "long"]
+    },
+    {
+      "name":"latestPrice",
+      "type" : ["null", "long"]
+    }
+  ]
+}
+```
+
 ## Data Processing
+1. Kafka Streams
+2. Apache Flink
+
+## Data Analytics / SQL / Dashboard
+
+### SQL
+Running Presto & Minio(S3):
+```
+cd /path/to/workspace
+git clone https://github.com/youngwookim/presto-minio.git
+cd presto-minio
+```
+
+```
+MINIO_ACCESS_KEY: V42FCGRVMK24JJ8DHUYG
+MINIO_SECRET_KEY: bKhWxVF3kQoLY9kFmt91l+tDrEoZjqnWXzY9Eza
+```
+
+2. Data Analytics    
+https://github.com/youngwookim/my-docker-stacks
+
+```
+cd /path/to/workspace
+git clone https://github.com/youngwookim/my-docker-stacks.git
+cd my-docker-stacks
+cd jupyter-ds
+docker build --rm -t youngwookim/my-datascience-notebook .
+
+```
+
+Running JupyterLab:
+```
+cd /path/to/workspace/skbda2019/labs
+docker run --rm --user root -p 8888:8888 -e GRANT_SUDO=yes -e JUPYTER_ENABLE_LAB=yes -v "$PWD":/home/jovyan youngwookim/my-datascience-notebook:latest
+
+......
+
+Copy/paste this URL into your browser when you connect for the first time,
+    to login with a token:
+        http://(be1ee3cbaf72 or 127.0.0.1):8888/?token=42a319245ef11fc8b5fbae2480fd3b3da557489b05f4f357
+```
+
+http://localhost:8888/?token=42a319245ef11fc8b5fbae2480fd3b3da557489b05f4f357
+
+### Dashboard
+
+1. Superset
+```
+docker run -d --name superset -p 8088:8088 tylerfowler/superset
+```
+
+Login with a default username and password of:
+```
+username: admin
+password: superset
+```
+
+Sources:
+```
+presto://[HOST_IP]:8080/minio
+
+e.g., presto://172.16.0.68:8080/minio
+
+```
+
+SQL Lab:
+```
+
+```
+
+2. metatron discovery
+https://metatron.app/download/installation-guide-docker/
+
+```
+docker run -i -d --rm -m 6G -p 8180:8180 --name metatron-discovery metatronapp/discovery:latest
+
+```
+
+Login:
+```
+admin / admin
+```

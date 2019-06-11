@@ -2,17 +2,61 @@
   "type":"record",
   "name":"IexTrading",
   "namespace":"com.example.avro",
-  "doc": "This is a Avro schema for IEX Trading API",
+  "doc": "Avro schema for IEX Trading API",
   "fields":[
     {
       "name":"symbol",
-      "type":"string" 
+      "type":"string",
+      "doc":"Stock Symbol"
     },
     {
       "name":"companyName",
       "type": ["null", "string"],
       "avro.java.string":"String",
       "doc":"Company Name"
+    },
+    {
+      "name":"primaryExchange",
+      "type": ["null", "string"],
+      "avro.java.string":"String"
+    },
+    {
+      "name":"sector",
+      "type": ["null", "string"],
+      "avro.java.string":"String"
+    },
+    {
+      "name":"calculationPrice",
+      "type": ["null", "string"],
+      "avro.java.string":"String"
+    },
+    {
+      "name":"open",
+      "type" : ["null", "long"]
+    },
+    {
+      "name":"openTime",
+      "type": ["null", "long"]
+    },
+    {
+      "name":"close",
+      "type" : ["null", "long"]
+    },
+    {
+      "name":"closeTime",
+      "type": ["null", "long"]
+    },
+    {
+      "name":"high",
+      "type" : ["null", "long"]
+    },
+    {
+      "name":"low",
+      "type" : ["null", "long"]
+    },
+    {
+      "name":"latestPrice",
+      "type" : ["null", "long"]
     }
   ]
 }

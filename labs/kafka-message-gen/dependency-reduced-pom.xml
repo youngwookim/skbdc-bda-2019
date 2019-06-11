@@ -26,6 +26,7 @@
             <configuration>
               <sourceDirectory>${project.basedir}/src/main/resources/</sourceDirectory>
               <outputDirectory>${project.basedir}/src/main/java/</outputDirectory>
+              <enableDecimalLogicalType>true</enableDecimalLogicalType>
             </configuration>
           </execution>
         </executions>

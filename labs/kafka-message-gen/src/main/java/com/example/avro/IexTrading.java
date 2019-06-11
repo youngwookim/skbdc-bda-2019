@@ -12,11 +12,11 @@ import org.apache.avro.message.BinaryMessageEncoder;
 import org.apache.avro.message.BinaryMessageDecoder;
 import org.apache.avro.message.SchemaStore;
 
-/** This is a Avro schema for IEX Trading API */
+/** Avro schema for IEX Trading API */
 @org.apache.avro.specific.AvroGenerated
 public class IexTrading extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -319107827241929004L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"IexTrading\",\"namespace\":\"com.example.avro\",\"doc\":\"This is a Avro schema for IEX Trading API\",\"fields\":[{\"name\":\"symbol\",\"type\":\"string\"},{\"name\":\"companyName\",\"type\":[\"null\",\"string\"],\"doc\":\"Company Name\",\"avro.java.string\":\"String\"}]}");
+  private static final long serialVersionUID = 5369330590951434028L;
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"IexTrading\",\"namespace\":\"com.example.avro\",\"doc\":\"Avro schema for IEX Trading API\",\"fields\":[{\"name\":\"symbol\",\"type\":\"string\",\"doc\":\"Stock Symbol\"},{\"name\":\"companyName\",\"type\":[\"null\",\"string\"],\"doc\":\"Company Name\",\"avro.java.string\":\"String\"},{\"name\":\"primaryExchange\",\"type\":[\"null\",\"string\"],\"avro.java.string\":\"String\"},{\"name\":\"sector\",\"type\":[\"null\",\"string\"],\"avro.java.string\":\"String\"},{\"name\":\"calculationPrice\",\"type\":[\"null\",\"string\"],\"avro.java.string\":\"String\"},{\"name\":\"open\",\"type\":[\"null\",\"long\"]},{\"name\":\"openTime\",\"type\":[\"null\",\"long\"]},{\"name\":\"close\",\"type\":[\"null\",\"long\"]},{\"name\":\"closeTime\",\"type\":[\"null\",\"long\"]},{\"name\":\"high\",\"type\":[\"null\",\"long\"]},{\"name\":\"low\",\"type\":[\"null\",\"long\"]},{\"name\":\"latestPrice\",\"type\":[\"null\",\"long\"]}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
@@ -72,9 +72,20 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
     return DECODER.decode(b);
   }
 
+  /** Stock Symbol */
   @Deprecated public java.lang.CharSequence symbol;
   /** Company Name */
   @Deprecated public java.lang.CharSequence companyName;
+  @Deprecated public java.lang.CharSequence primaryExchange;
+  @Deprecated public java.lang.CharSequence sector;
+  @Deprecated public java.lang.CharSequence calculationPrice;
+  @Deprecated public java.lang.Long open;
+  @Deprecated public java.lang.Long openTime;
+  @Deprecated public java.lang.Long close;
+  @Deprecated public java.lang.Long closeTime;
+  @Deprecated public java.lang.Long high;
+  @Deprecated public java.lang.Long low;
+  @Deprecated public java.lang.Long latestPrice;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -85,12 +96,32 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
 
   /**
    * All-args constructor.
-   * @param symbol The new value for symbol
+   * @param symbol Stock Symbol
    * @param companyName Company Name
+   * @param primaryExchange The new value for primaryExchange
+   * @param sector The new value for sector
+   * @param calculationPrice The new value for calculationPrice
+   * @param open The new value for open
+   * @param openTime The new value for openTime
+   * @param close The new value for close
+   * @param closeTime The new value for closeTime
+   * @param high The new value for high
+   * @param low The new value for low
+   * @param latestPrice The new value for latestPrice
    */
-  public IexTrading(java.lang.CharSequence symbol, java.lang.CharSequence companyName) {
+  public IexTrading(java.lang.CharSequence symbol, java.lang.CharSequence companyName, java.lang.CharSequence primaryExchange, java.lang.CharSequence sector, java.lang.CharSequence calculationPrice, java.lang.Long open, java.lang.Long openTime, java.lang.Long close, java.lang.Long closeTime, java.lang.Long high, java.lang.Long low, java.lang.Long latestPrice) {
     this.symbol = symbol;
     this.companyName = companyName;
+    this.primaryExchange = primaryExchange;
+    this.sector = sector;
+    this.calculationPrice = calculationPrice;
+    this.open = open;
+    this.openTime = openTime;
+    this.close = close;
+    this.closeTime = closeTime;
+    this.high = high;
+    this.low = low;
+    this.latestPrice = latestPrice;
   }
 
   public org.apache.avro.specific.SpecificData getSpecificData() { return MODEL$; }
@@ -100,6 +131,16 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
     switch (field$) {
     case 0: return symbol;
     case 1: return companyName;
+    case 2: return primaryExchange;
+    case 3: return sector;
+    case 4: return calculationPrice;
+    case 5: return open;
+    case 6: return openTime;
+    case 7: return close;
+    case 8: return closeTime;
+    case 9: return high;
+    case 10: return low;
+    case 11: return latestPrice;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -110,13 +151,23 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
     switch (field$) {
     case 0: symbol = (java.lang.CharSequence)value$; break;
     case 1: companyName = (java.lang.CharSequence)value$; break;
+    case 2: primaryExchange = (java.lang.CharSequence)value$; break;
+    case 3: sector = (java.lang.CharSequence)value$; break;
+    case 4: calculationPrice = (java.lang.CharSequence)value$; break;
+    case 5: open = (java.lang.Long)value$; break;
+    case 6: openTime = (java.lang.Long)value$; break;
+    case 7: close = (java.lang.Long)value$; break;
+    case 8: closeTime = (java.lang.Long)value$; break;
+    case 9: high = (java.lang.Long)value$; break;
+    case 10: low = (java.lang.Long)value$; break;
+    case 11: latestPrice = (java.lang.Long)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
 
   /**
    * Gets the value of the 'symbol' field.
-   * @return The value of the 'symbol' field.
+   * @return Stock Symbol
    */
   public java.lang.CharSequence getSymbol() {
     return symbol;
@@ -125,6 +176,7 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
 
   /**
    * Sets the value of the 'symbol' field.
+   * Stock Symbol
    * @param value the value to set.
    */
   public void setSymbol(java.lang.CharSequence value) {
@@ -147,6 +199,176 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
    */
   public void setCompanyName(java.lang.CharSequence value) {
     this.companyName = value;
+  }
+
+  /**
+   * Gets the value of the 'primaryExchange' field.
+   * @return The value of the 'primaryExchange' field.
+   */
+  public java.lang.CharSequence getPrimaryExchange() {
+    return primaryExchange;
+  }
+
+
+  /**
+   * Sets the value of the 'primaryExchange' field.
+   * @param value the value to set.
+   */
+  public void setPrimaryExchange(java.lang.CharSequence value) {
+    this.primaryExchange = value;
+  }
+
+  /**
+   * Gets the value of the 'sector' field.
+   * @return The value of the 'sector' field.
+   */
+  public java.lang.CharSequence getSector() {
+    return sector;
+  }
+
+
+  /**
+   * Sets the value of the 'sector' field.
+   * @param value the value to set.
+   */
+  public void setSector(java.lang.CharSequence value) {
+    this.sector = value;
+  }
+
+  /**
+   * Gets the value of the 'calculationPrice' field.
+   * @return The value of the 'calculationPrice' field.
+   */
+  public java.lang.CharSequence getCalculationPrice() {
+    return calculationPrice;
+  }
+
+
+  /**
+   * Sets the value of the 'calculationPrice' field.
+   * @param value the value to set.
+   */
+  public void setCalculationPrice(java.lang.CharSequence value) {
+    this.calculationPrice = value;
+  }
+
+  /**
+   * Gets the value of the 'open' field.
+   * @return The value of the 'open' field.
+   */
+  public java.lang.Long getOpen() {
+    return open;
+  }
+
+
+  /**
+   * Sets the value of the 'open' field.
+   * @param value the value to set.
+   */
+  public void setOpen(java.lang.Long value) {
+    this.open = value;
+  }
+
+  /**
+   * Gets the value of the 'openTime' field.
+   * @return The value of the 'openTime' field.
+   */
+  public java.lang.Long getOpenTime() {
+    return openTime;
+  }
+
+
+  /**
+   * Sets the value of the 'openTime' field.
+   * @param value the value to set.
+   */
+  public void setOpenTime(java.lang.Long value) {
+    this.openTime = value;
+  }
+
+  /**
+   * Gets the value of the 'close' field.
+   * @return The value of the 'close' field.
+   */
+  public java.lang.Long getClose() {
+    return close;
+  }
+
+
+  /**
+   * Sets the value of the 'close' field.
+   * @param value the value to set.
+   */
+  public void setClose(java.lang.Long value) {
+    this.close = value;
+  }
+
+  /**
+   * Gets the value of the 'closeTime' field.
+   * @return The value of the 'closeTime' field.
+   */
+  public java.lang.Long getCloseTime() {
+    return closeTime;
+  }
+
+
+  /**
+   * Sets the value of the 'closeTime' field.
+   * @param value the value to set.
+   */
+  public void setCloseTime(java.lang.Long value) {
+    this.closeTime = value;
+  }
+
+  /**
+   * Gets the value of the 'high' field.
+   * @return The value of the 'high' field.
+   */
+  public java.lang.Long getHigh() {
+    return high;
+  }
+
+
+  /**
+   * Sets the value of the 'high' field.
+   * @param value the value to set.
+   */
+  public void setHigh(java.lang.Long value) {
+    this.high = value;
+  }
+
+  /**
+   * Gets the value of the 'low' field.
+   * @return The value of the 'low' field.
+   */
+  public java.lang.Long getLow() {
+    return low;
+  }
+
+
+  /**
+   * Sets the value of the 'low' field.
+   * @param value the value to set.
+   */
+  public void setLow(java.lang.Long value) {
+    this.low = value;
+  }
+
+  /**
+   * Gets the value of the 'latestPrice' field.
+   * @return The value of the 'latestPrice' field.
+   */
+  public java.lang.Long getLatestPrice() {
+    return latestPrice;
+  }
+
+
+  /**
+   * Sets the value of the 'latestPrice' field.
+   * @param value the value to set.
+   */
+  public void setLatestPrice(java.lang.Long value) {
+    this.latestPrice = value;
   }
 
   /**
@@ -189,9 +411,20 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<IexTrading>
     implements org.apache.avro.data.RecordBuilder<IexTrading> {
 
+    /** Stock Symbol */
     private java.lang.CharSequence symbol;
     /** Company Name */
     private java.lang.CharSequence companyName;
+    private java.lang.CharSequence primaryExchange;
+    private java.lang.CharSequence sector;
+    private java.lang.CharSequence calculationPrice;
+    private java.lang.Long open;
+    private java.lang.Long openTime;
+    private java.lang.Long close;
+    private java.lang.Long closeTime;
+    private java.lang.Long high;
+    private java.lang.Long low;
+    private java.lang.Long latestPrice;
 
     /** Creates a new Builder */
     private Builder() {
@@ -212,6 +445,46 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
         this.companyName = data().deepCopy(fields()[1].schema(), other.companyName);
         fieldSetFlags()[1] = other.fieldSetFlags()[1];
       }
+      if (isValidValue(fields()[2], other.primaryExchange)) {
+        this.primaryExchange = data().deepCopy(fields()[2].schema(), other.primaryExchange);
+        fieldSetFlags()[2] = other.fieldSetFlags()[2];
+      }
+      if (isValidValue(fields()[3], other.sector)) {
+        this.sector = data().deepCopy(fields()[3].schema(), other.sector);
+        fieldSetFlags()[3] = other.fieldSetFlags()[3];
+      }
+      if (isValidValue(fields()[4], other.calculationPrice)) {
+        this.calculationPrice = data().deepCopy(fields()[4].schema(), other.calculationPrice);
+        fieldSetFlags()[4] = other.fieldSetFlags()[4];
+      }
+      if (isValidValue(fields()[5], other.open)) {
+        this.open = data().deepCopy(fields()[5].schema(), other.open);
+        fieldSetFlags()[5] = other.fieldSetFlags()[5];
+      }
+      if (isValidValue(fields()[6], other.openTime)) {
+        this.openTime = data().deepCopy(fields()[6].schema(), other.openTime);
+        fieldSetFlags()[6] = other.fieldSetFlags()[6];
+      }
+      if (isValidValue(fields()[7], other.close)) {
+        this.close = data().deepCopy(fields()[7].schema(), other.close);
+        fieldSetFlags()[7] = other.fieldSetFlags()[7];
+      }
+      if (isValidValue(fields()[8], other.closeTime)) {
+        this.closeTime = data().deepCopy(fields()[8].schema(), other.closeTime);
+        fieldSetFlags()[8] = other.fieldSetFlags()[8];
+      }
+      if (isValidValue(fields()[9], other.high)) {
+        this.high = data().deepCopy(fields()[9].schema(), other.high);
+        fieldSetFlags()[9] = other.fieldSetFlags()[9];
+      }
+      if (isValidValue(fields()[10], other.low)) {
+        this.low = data().deepCopy(fields()[10].schema(), other.low);
+        fieldSetFlags()[10] = other.fieldSetFlags()[10];
+      }
+      if (isValidValue(fields()[11], other.latestPrice)) {
+        this.latestPrice = data().deepCopy(fields()[11].schema(), other.latestPrice);
+        fieldSetFlags()[11] = other.fieldSetFlags()[11];
+      }
     }
 
     /**
@@ -228,10 +501,51 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
         this.companyName = data().deepCopy(fields()[1].schema(), other.companyName);
         fieldSetFlags()[1] = true;
       }
+      if (isValidValue(fields()[2], other.primaryExchange)) {
+        this.primaryExchange = data().deepCopy(fields()[2].schema(), other.primaryExchange);
+        fieldSetFlags()[2] = true;
+      }
+      if (isValidValue(fields()[3], other.sector)) {
+        this.sector = data().deepCopy(fields()[3].schema(), other.sector);
+        fieldSetFlags()[3] = true;
+      }
+      if (isValidValue(fields()[4], other.calculationPrice)) {
+        this.calculationPrice = data().deepCopy(fields()[4].schema(), other.calculationPrice);
+        fieldSetFlags()[4] = true;
+      }
+      if (isValidValue(fields()[5], other.open)) {
+        this.open = data().deepCopy(fields()[5].schema(), other.open);
+        fieldSetFlags()[5] = true;
+      }
+      if (isValidValue(fields()[6], other.openTime)) {
+        this.openTime = data().deepCopy(fields()[6].schema(), other.openTime);
+        fieldSetFlags()[6] = true;
+      }
+      if (isValidValue(fields()[7], other.close)) {
+        this.close = data().deepCopy(fields()[7].schema(), other.close);
+        fieldSetFlags()[7] = true;
+      }
+      if (isValidValue(fields()[8], other.closeTime)) {
+        this.closeTime = data().deepCopy(fields()[8].schema(), other.closeTime);
+        fieldSetFlags()[8] = true;
+      }
+      if (isValidValue(fields()[9], other.high)) {
+        this.high = data().deepCopy(fields()[9].schema(), other.high);
+        fieldSetFlags()[9] = true;
+      }
+      if (isValidValue(fields()[10], other.low)) {
+        this.low = data().deepCopy(fields()[10].schema(), other.low);
+        fieldSetFlags()[10] = true;
+      }
+      if (isValidValue(fields()[11], other.latestPrice)) {
+        this.latestPrice = data().deepCopy(fields()[11].schema(), other.latestPrice);
+        fieldSetFlags()[11] = true;
+      }
     }
 
     /**
       * Gets the value of the 'symbol' field.
+      * Stock Symbol
       * @return The value.
       */
     public java.lang.CharSequence getSymbol() {
@@ -241,6 +555,7 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
 
     /**
       * Sets the value of the 'symbol' field.
+      * Stock Symbol
       * @param value The value of 'symbol'.
       * @return This builder.
       */
@@ -253,6 +568,7 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
 
     /**
       * Checks whether the 'symbol' field has been set.
+      * Stock Symbol
       * @return True if the 'symbol' field has been set, false otherwise.
       */
     public boolean hasSymbol() {
@@ -262,6 +578,7 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
 
     /**
       * Clears the value of the 'symbol' field.
+      * Stock Symbol
       * @return This builder.
       */
     public com.example.avro.IexTrading.Builder clearSymbol() {
@@ -314,6 +631,406 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
       return this;
     }
 
+    /**
+      * Gets the value of the 'primaryExchange' field.
+      * @return The value.
+      */
+    public java.lang.CharSequence getPrimaryExchange() {
+      return primaryExchange;
+    }
+
+
+    /**
+      * Sets the value of the 'primaryExchange' field.
+      * @param value The value of 'primaryExchange'.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder setPrimaryExchange(java.lang.CharSequence value) {
+      validate(fields()[2], value);
+      this.primaryExchange = value;
+      fieldSetFlags()[2] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'primaryExchange' field has been set.
+      * @return True if the 'primaryExchange' field has been set, false otherwise.
+      */
+    public boolean hasPrimaryExchange() {
+      return fieldSetFlags()[2];
+    }
+
+
+    /**
+      * Clears the value of the 'primaryExchange' field.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder clearPrimaryExchange() {
+      primaryExchange = null;
+      fieldSetFlags()[2] = false;
+      return this;
+    }
+
+    /**
+      * Gets the value of the 'sector' field.
+      * @return The value.
+      */
+    public java.lang.CharSequence getSector() {
+      return sector;
+    }
+
+
+    /**
+      * Sets the value of the 'sector' field.
+      * @param value The value of 'sector'.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder setSector(java.lang.CharSequence value) {
+      validate(fields()[3], value);
+      this.sector = value;
+      fieldSetFlags()[3] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'sector' field has been set.
+      * @return True if the 'sector' field has been set, false otherwise.
+      */
+    public boolean hasSector() {
+      return fieldSetFlags()[3];
+    }
+
+
+    /**
+      * Clears the value of the 'sector' field.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder clearSector() {
+      sector = null;
+      fieldSetFlags()[3] = false;
+      return this;
+    }
+
+    /**
+      * Gets the value of the 'calculationPrice' field.
+      * @return The value.
+      */
+    public java.lang.CharSequence getCalculationPrice() {
+      return calculationPrice;
+    }
+
+
+    /**
+      * Sets the value of the 'calculationPrice' field.
+      * @param value The value of 'calculationPrice'.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder setCalculationPrice(java.lang.CharSequence value) {
+      validate(fields()[4], value);
+      this.calculationPrice = value;
+      fieldSetFlags()[4] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'calculationPrice' field has been set.
+      * @return True if the 'calculationPrice' field has been set, false otherwise.
+      */
+    public boolean hasCalculationPrice() {
+      return fieldSetFlags()[4];
+    }
+
+
+    /**
+      * Clears the value of the 'calculationPrice' field.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder clearCalculationPrice() {
+      calculationPrice = null;
+      fieldSetFlags()[4] = false;
+      return this;
+    }
+
+    /**
+      * Gets the value of the 'open' field.
+      * @return The value.
+      */
+    public java.lang.Long getOpen() {
+      return open;
+    }
+
+
+    /**
+      * Sets the value of the 'open' field.
+      * @param value The value of 'open'.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder setOpen(java.lang.Long value) {
+      validate(fields()[5], value);
+      this.open = value;
+      fieldSetFlags()[5] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'open' field has been set.
+      * @return True if the 'open' field has been set, false otherwise.
+      */
+    public boolean hasOpen() {
+      return fieldSetFlags()[5];
+    }
+
+
+    /**
+      * Clears the value of the 'open' field.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder clearOpen() {
+      open = null;
+      fieldSetFlags()[5] = false;
+      return this;
+    }
+
+    /**
+      * Gets the value of the 'openTime' field.
+      * @return The value.
+      */
+    public java.lang.Long getOpenTime() {
+      return openTime;
+    }
+
+
+    /**
+      * Sets the value of the 'openTime' field.
+      * @param value The value of 'openTime'.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder setOpenTime(java.lang.Long value) {
+      validate(fields()[6], value);
+      this.openTime = value;
+      fieldSetFlags()[6] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'openTime' field has been set.
+      * @return True if the 'openTime' field has been set, false otherwise.
+      */
+    public boolean hasOpenTime() {
+      return fieldSetFlags()[6];
+    }
+
+
+    /**
+      * Clears the value of the 'openTime' field.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder clearOpenTime() {
+      openTime = null;
+      fieldSetFlags()[6] = false;
+      return this;
+    }
+
+    /**
+      * Gets the value of the 'close' field.
+      * @return The value.
+      */
+    public java.lang.Long getClose() {
+      return close;
+    }
+
+
+    /**
+      * Sets the value of the 'close' field.
+      * @param value The value of 'close'.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder setClose(java.lang.Long value) {
+      validate(fields()[7], value);
+      this.close = value;
+      fieldSetFlags()[7] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'close' field has been set.
+      * @return True if the 'close' field has been set, false otherwise.
+      */
+    public boolean hasClose() {
+      return fieldSetFlags()[7];
+    }
+
+
+    /**
+      * Clears the value of the 'close' field.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder clearClose() {
+      close = null;
+      fieldSetFlags()[7] = false;
+      return this;
+    }
+
+    /**
+      * Gets the value of the 'closeTime' field.
+      * @return The value.
+      */
+    public java.lang.Long getCloseTime() {
+      return closeTime;
+    }
+
+
+    /**
+      * Sets the value of the 'closeTime' field.
+      * @param value The value of 'closeTime'.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder setCloseTime(java.lang.Long value) {
+      validate(fields()[8], value);
+      this.closeTime = value;
+      fieldSetFlags()[8] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'closeTime' field has been set.
+      * @return True if the 'closeTime' field has been set, false otherwise.
+      */
+    public boolean hasCloseTime() {
+      return fieldSetFlags()[8];
+    }
+
+
+    /**
+      * Clears the value of the 'closeTime' field.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder clearCloseTime() {
+      closeTime = null;
+      fieldSetFlags()[8] = false;
+      return this;
+    }
+
+    /**
+      * Gets the value of the 'high' field.
+      * @return The value.
+      */
+    public java.lang.Long getHigh() {
+      return high;
+    }
+
+
+    /**
+      * Sets the value of the 'high' field.
+      * @param value The value of 'high'.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder setHigh(java.lang.Long value) {
+      validate(fields()[9], value);
+      this.high = value;
+      fieldSetFlags()[9] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'high' field has been set.
+      * @return True if the 'high' field has been set, false otherwise.
+      */
+    public boolean hasHigh() {
+      return fieldSetFlags()[9];
+    }
+
+
+    /**
+      * Clears the value of the 'high' field.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder clearHigh() {
+      high = null;
+      fieldSetFlags()[9] = false;
+      return this;
+    }
+
+    /**
+      * Gets the value of the 'low' field.
+      * @return The value.
+      */
+    public java.lang.Long getLow() {
+      return low;
+    }
+
+
+    /**
+      * Sets the value of the 'low' field.
+      * @param value The value of 'low'.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder setLow(java.lang.Long value) {
+      validate(fields()[10], value);
+      this.low = value;
+      fieldSetFlags()[10] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'low' field has been set.
+      * @return True if the 'low' field has been set, false otherwise.
+      */
+    public boolean hasLow() {
+      return fieldSetFlags()[10];
+    }
+
+
+    /**
+      * Clears the value of the 'low' field.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder clearLow() {
+      low = null;
+      fieldSetFlags()[10] = false;
+      return this;
+    }
+
+    /**
+      * Gets the value of the 'latestPrice' field.
+      * @return The value.
+      */
+    public java.lang.Long getLatestPrice() {
+      return latestPrice;
+    }
+
+
+    /**
+      * Sets the value of the 'latestPrice' field.
+      * @param value The value of 'latestPrice'.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder setLatestPrice(java.lang.Long value) {
+      validate(fields()[11], value);
+      this.latestPrice = value;
+      fieldSetFlags()[11] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'latestPrice' field has been set.
+      * @return True if the 'latestPrice' field has been set, false otherwise.
+      */
+    public boolean hasLatestPrice() {
+      return fieldSetFlags()[11];
+    }
+
+
+    /**
+      * Clears the value of the 'latestPrice' field.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder clearLatestPrice() {
+      latestPrice = null;
+      fieldSetFlags()[11] = false;
+      return this;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public IexTrading build() {
@@ -321,6 +1038,16 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
         IexTrading record = new IexTrading();
         record.symbol = fieldSetFlags()[0] ? this.symbol : (java.lang.CharSequence) defaultValue(fields()[0]);
         record.companyName = fieldSetFlags()[1] ? this.companyName : (java.lang.CharSequence) defaultValue(fields()[1]);
+        record.primaryExchange = fieldSetFlags()[2] ? this.primaryExchange : (java.lang.CharSequence) defaultValue(fields()[2]);
+        record.sector = fieldSetFlags()[3] ? this.sector : (java.lang.CharSequence) defaultValue(fields()[3]);
+        record.calculationPrice = fieldSetFlags()[4] ? this.calculationPrice : (java.lang.CharSequence) defaultValue(fields()[4]);
+        record.open = fieldSetFlags()[5] ? this.open : (java.lang.Long) defaultValue(fields()[5]);
+        record.openTime = fieldSetFlags()[6] ? this.openTime : (java.lang.Long) defaultValue(fields()[6]);
+        record.close = fieldSetFlags()[7] ? this.close : (java.lang.Long) defaultValue(fields()[7]);
+        record.closeTime = fieldSetFlags()[8] ? this.closeTime : (java.lang.Long) defaultValue(fields()[8]);
+        record.high = fieldSetFlags()[9] ? this.high : (java.lang.Long) defaultValue(fields()[9]);
+        record.low = fieldSetFlags()[10] ? this.low : (java.lang.Long) defaultValue(fields()[10]);
+        record.latestPrice = fieldSetFlags()[11] ? this.latestPrice : (java.lang.Long) defaultValue(fields()[11]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;
@@ -363,6 +1090,86 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
       out.writeString(this.companyName);
     }
 
+    if (this.primaryExchange == null) {
+      out.writeIndex(0);
+      out.writeNull();
+    } else {
+      out.writeIndex(1);
+      out.writeString(this.primaryExchange);
+    }
+
+    if (this.sector == null) {
+      out.writeIndex(0);
+      out.writeNull();
+    } else {
+      out.writeIndex(1);
+      out.writeString(this.sector);
+    }
+
+    if (this.calculationPrice == null) {
+      out.writeIndex(0);
+      out.writeNull();
+    } else {
+      out.writeIndex(1);
+      out.writeString(this.calculationPrice);
+    }
+
+    if (this.open == null) {
+      out.writeIndex(0);
+      out.writeNull();
+    } else {
+      out.writeIndex(1);
+      out.writeLong(this.open);
+    }
+
+    if (this.openTime == null) {
+      out.writeIndex(0);
+      out.writeNull();
+    } else {
+      out.writeIndex(1);
+      out.writeLong(this.openTime);
+    }
+
+    if (this.close == null) {
+      out.writeIndex(0);
+      out.writeNull();
+    } else {
+      out.writeIndex(1);
+      out.writeLong(this.close);
+    }
+
+    if (this.closeTime == null) {
+      out.writeIndex(0);
+      out.writeNull();
+    } else {
+      out.writeIndex(1);
+      out.writeLong(this.closeTime);
+    }
+
+    if (this.high == null) {
+      out.writeIndex(0);
+      out.writeNull();
+    } else {
+      out.writeIndex(1);
+      out.writeLong(this.high);
+    }
+
+    if (this.low == null) {
+      out.writeIndex(0);
+      out.writeNull();
+    } else {
+      out.writeIndex(1);
+      out.writeLong(this.low);
+    }
+
+    if (this.latestPrice == null) {
+      out.writeIndex(0);
+      out.writeNull();
+    } else {
+      out.writeIndex(1);
+      out.writeLong(this.latestPrice);
+    }
+
   }
 
   @Override public void customDecode(org.apache.avro.io.ResolvingDecoder in)
@@ -379,8 +1186,78 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
         this.companyName = in.readString(this.companyName instanceof Utf8 ? (Utf8)this.companyName : null);
       }
 
+      if (in.readIndex() != 1) {
+        in.readNull();
+        this.primaryExchange = null;
+      } else {
+        this.primaryExchange = in.readString(this.primaryExchange instanceof Utf8 ? (Utf8)this.primaryExchange : null);
+      }
+
+      if (in.readIndex() != 1) {
+        in.readNull();
+        this.sector = null;
+      } else {
+        this.sector = in.readString(this.sector instanceof Utf8 ? (Utf8)this.sector : null);
+      }
+
+      if (in.readIndex() != 1) {
+        in.readNull();
+        this.calculationPrice = null;
+      } else {
+        this.calculationPrice = in.readString(this.calculationPrice instanceof Utf8 ? (Utf8)this.calculationPrice : null);
+      }
+
+      if (in.readIndex() != 1) {
+        in.readNull();
+        this.open = null;
+      } else {
+        this.open = in.readLong();
+      }
+
+      if (in.readIndex() != 1) {
+        in.readNull();
+        this.openTime = null;
+      } else {
+        this.openTime = in.readLong();
+      }
+
+      if (in.readIndex() != 1) {
+        in.readNull();
+        this.close = null;
+      } else {
+        this.close = in.readLong();
+      }
+
+      if (in.readIndex() != 1) {
+        in.readNull();
+        this.closeTime = null;
+      } else {
+        this.closeTime = in.readLong();
+      }
+
+      if (in.readIndex() != 1) {
+        in.readNull();
+        this.high = null;
+      } else {
+        this.high = in.readLong();
+      }
+
+      if (in.readIndex() != 1) {
+        in.readNull();
+        this.low = null;
+      } else {
+        this.low = in.readLong();
+      }
+
+      if (in.readIndex() != 1) {
+        in.readNull();
+        this.latestPrice = null;
+      } else {
+        this.latestPrice = in.readLong();
+      }
+
     } else {
-      for (int i = 0; i < 2; i++) {
+      for (int i = 0; i < 12; i++) {
         switch (fieldOrder[i].pos()) {
         case 0:
           this.symbol = in.readString(this.symbol instanceof Utf8 ? (Utf8)this.symbol : null);
@@ -392,6 +1269,96 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
             this.companyName = null;
           } else {
             this.companyName = in.readString(this.companyName instanceof Utf8 ? (Utf8)this.companyName : null);
+          }
+          break;
+
+        case 2:
+          if (in.readIndex() != 1) {
+            in.readNull();
+            this.primaryExchange = null;
+          } else {
+            this.primaryExchange = in.readString(this.primaryExchange instanceof Utf8 ? (Utf8)this.primaryExchange : null);
+          }
+          break;
+
+        case 3:
+          if (in.readIndex() != 1) {
+            in.readNull();
+            this.sector = null;
+          } else {
+            this.sector = in.readString(this.sector instanceof Utf8 ? (Utf8)this.sector : null);
+          }
+          break;
+
+        case 4:
+          if (in.readIndex() != 1) {
+            in.readNull();
+            this.calculationPrice = null;
+          } else {
+            this.calculationPrice = in.readString(this.calculationPrice instanceof Utf8 ? (Utf8)this.calculationPrice : null);
+          }
+          break;
+
+        case 5:
+          if (in.readIndex() != 1) {
+            in.readNull();
+            this.open = null;
+          } else {
+            this.open = in.readLong();
+          }
+          break;
+
+        case 6:
+          if (in.readIndex() != 1) {
+            in.readNull();
+            this.openTime = null;
+          } else {
+            this.openTime = in.readLong();
+          }
+          break;
+
+        case 7:
+          if (in.readIndex() != 1) {
+            in.readNull();
+            this.close = null;
+          } else {
+            this.close = in.readLong();
+          }
+          break;
+
+        case 8:
+          if (in.readIndex() != 1) {
+            in.readNull();
+            this.closeTime = null;
+          } else {
+            this.closeTime = in.readLong();
+          }
+          break;
+
+        case 9:
+          if (in.readIndex() != 1) {
+            in.readNull();
+            this.high = null;
+          } else {
+            this.high = in.readLong();
+          }
+          break;
+
+        case 10:
+          if (in.readIndex() != 1) {
+            in.readNull();
+            this.low = null;
+          } else {
+            this.low = in.readLong();
+          }
+          break;
+
+        case 11:
+          if (in.readIndex() != 1) {
+            in.readNull();
+            this.latestPrice = null;
+          } else {
+            this.latestPrice = in.readLong();
           }
           break;
 

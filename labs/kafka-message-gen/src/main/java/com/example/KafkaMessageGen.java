@@ -63,10 +63,18 @@ public class KafkaMessageGen {
 				try {
 					final Quote quote = iexTradingClient
 							.executeRequest(new QuoteRequestBuilder().withSymbol(symbol).build());
-					if (quote == null) {
-						iex.setCompanyName(null);
-					} else {
+					if (quote != null) {
 						iex.setCompanyName(quote.getCompanyName());
+						iex.setPrimaryExchange(quote.getPrimaryExchange());
+						iex.setSector(quote.getSector());
+						iex.setCalculationPrice(quote.getCalculationPrice());
+						iex.setOpen(quote.getOpen().longValue());
+						iex.setOpenTime(quote.getOpenTime().longValue());
+						iex.setClose(quote.getClose().longValue());
+						iex.setCloseTime(quote.getCloseTime());
+						iex.setHigh(quote.getHigh().longValue());
+						iex.setLow(quote.getLow().longValue());
+						iex.setLatestPrice(quote.getLatestPrice().longValue());
 					}
 				} catch (Exception e) {
 					// ignore unknown symbol or network errors
