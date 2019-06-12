@@ -540,7 +540,7 @@ Avro schema:
     },
     {
       "name":"open",
-      "type" : ["null", "long"]
+      "type" : ["null", "double"]
     },
     {
       "name":"openTime",
@@ -548,7 +548,7 @@ Avro schema:
     },
     {
       "name":"close",
-      "type" : ["null", "long"]
+      "type" : ["null", "double"]
     },
     {
       "name":"closeTime",
@@ -556,23 +556,153 @@ Avro schema:
     },
     {
       "name":"high",
-      "type" : ["null", "long"]
+      "type" : ["null", "double"]
     },
     {
       "name":"low",
-      "type" : ["null", "long"]
+      "type" : ["null", "double"]
     },
     {
       "name":"latestPrice",
-      "type" : ["null", "long"]
+      "type" : ["null", "double"]
     }
   ]
 }
 ```
 
 ## Data Processing
-1. Kafka Streams
-2. Apache Flink
+### Kafka Streams
+iextrading events -> filter -> 'trading' topic
+
+### Apache Flink
+'trading' topic -> filter -> Minio(s3)
+
+https://blog.minio.io/stream-processing-with-apache-flink-and-minio-10da85590787
+
+Running Apache Flink:
+```
+cd /path/to/workspace/labs
+cd flink
+cd docker
+docker-compose -f flink.yaml up -d
+
+# jobmanager
+export JOBMANAGER_CONTAINER=$(docker ps --filter name=jobmanager --format={{.ID}})
+docker exec -t -i "$JOBMANAGER_CONTAINER" bash -l
+apt-get update && apt-get install -y procps vim
+
+su - flink
+bash -l
+vi /opt/flink/conf/flink-conf.yaml
+......
+state.backend: filesystem
+s3.endpoint: http://[HOST_IP]:9000
+s3.path-style: true
+s3.access-key: V42FCGRVMK24JJ8DHUYG
+s3.secret-key: bKhWxVF3kQoLY9kFmt91l+tDrEoZjqnWXzY9Eza
+
+E,g.,
+state.backend: filesystem
+s3.endpoint: http://172.16.0.68:9000
+s3.path-style: true
+s3.access-key: V42FCGRVMK24JJ8DHUYG
+s3.secret-key: bKhWxVF3kQoLY9kFmt91l+tDrEoZjqnWXzY9Eza
+
+```
+
+Flink and S3
+https://ci.apache.org/projects/flink/flink-docs-stable/ops/deployment/aws.html#shaded-hadooppresto-s3-file-systems-recommended
+```
+docker exec -t -i "$JOBMANAGER_CONTAINER" bash -l
+cp /opt/flink/opt/flink-s3-fs-presto-1.8.0.jar /opt/flink/lib/
+```
+
+```
+# taskmanager
+export TASKMANAGER_CONTAINER=$(docker ps --filter name=taskmanager --format={{.ID}})
+docker exec -t -i "$TASKMANAGER_CONTAINER" bash -l
+apt-get update && apt-get install -y procps vim
+```
+
+Restart Flink... (docker-compose down && up...)
+
+Flink example (wordcount):
+```
+$ export JOBMANAGER_CONTAINER=$(docker ps --filter name=jobmanager --format={{.ID}})
+$ docker exec -t -i "$JOBMANAGER_CONTAINER" flink run /opt/flink/examples/batch/WordCount.jar \
+--input s3://customer-data-text/customer.csv \
+--output s3://testbucket/output
+```
+
+Verify output:
+```
+# verify the result in using Minio Web:
+......
+
+# verify the result in using Minio mc:
+
+docker pull minio/mc
+docker run -it --entrypoint=/bin/sh minio/mc
+```
+~/.mc/config.json:
+```
+{
+	"version": "9",
+	"hosts": {
+		"gcs": {
+			"url": "https://storage.googleapis.com",
+			"accessKey": "YOUR-ACCESS-KEY-HERE",
+			"secretKey": "YOUR-SECRET-KEY-HERE",
+			"api": "S3v2",
+			"lookup": "dns"
+		},
+		"local": {
+			"url": "http://localhost:9000",
+			"accessKey": "",
+			"secretKey": "",
+			"api": "S3v4",
+			"lookup": "auto"
+		},
+		"play": {
+			"url": "https://play.min.io:9000",
+			"accessKey": "Q3AM3UQ867SPQQA43P2F",
+			"secretKey": "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG",
+			"api": "S3v4",
+			"lookup": "auto"
+		},
+		"s3": {
+			"url": "https://s3.amazonaws.com",
+			"accessKey": "YOUR-ACCESS-KEY-HERE",
+			"secretKey": "YOUR-SECRET-KEY-HERE",
+			"api": "S3v4",
+			"lookup": "dns"
+		}
+	}
+}
+```
+
+```
+~/.mc # mc cat local/testbucket/output
+5 1
+6 1
+bob 1
+brune 1
+jones 1
+phil 1
+
+```
+
+Running Kafka-Flink Streaming App:
+```
+$ export JOBMANAGER_CONTAINER=$(docker ps --filter name=jobmanager --format={{.ID}})
+$ docker cp flink-kafka-schema-registry/target/flink-kafka-schema-registry-1.0-SNAPSHOT.jar "$JOBMANAGER_CONTAINER":/flink-kafka-schema-registry-1.0-SNAPSHOT.jar
+$ docker exec -t -i "$JOBMANAGER_CONTAINER" flink run /flink-kafka-schema-registry-1.0-SNAPSHOT.jar \
+--input-topic hello \
+--output-topic world \
+--bootstrap.servers kafka1:19092 \
+--schema-registry-url http://kafka-schema-registry:8089/ \
+--group.id cgrp1
+```
 
 ## Data Analytics / SQL / Dashboard
 

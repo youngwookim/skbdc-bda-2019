@@ -32,7 +32,7 @@
     },
     {
       "name":"open",
-      "type" : ["null", "long"]
+      "type" : ["null", "double"]
     },
     {
       "name":"openTime",
@@ -40,7 +40,7 @@
     },
     {
       "name":"close",
-      "type" : ["null", "long"]
+      "type" : ["null", "double"]
     },
     {
       "name":"closeTime",
@@ -48,15 +48,15 @@
     },
     {
       "name":"high",
-      "type" : ["null", "long"]
+      "type" : ["null", "double"]
     },
     {
       "name":"low",
-      "type" : ["null", "long"]
+      "type" : ["null", "double"]
     },
     {
       "name":"latestPrice",
-      "type" : ["null", "long"]
+      "type" : ["null", "double"]
     }
   ]
 }
