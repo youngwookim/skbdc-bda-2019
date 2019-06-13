@@ -1,13 +1,39 @@
 # skbdc-bda-2019
 
-SK Big Data Course 2019 - Big Data Architecture (Fast Data)
+SK Big Data Course 2019 - Big Data Architecture (Fast Data Architecture)
+
+Designing Modern Streaming Data Applications
+
+2019. 06. 27 ~ 28
+
+과정 개요:
+- 스트리밍 데이터 처리 시스템을 구성하기 위해 필요한 구성 요소에 대하여 학습
+- 실시간 데이터를 위한 오픈소스 프로젝트와 해당 프로젝트의 특징 학습
+- 성공적인 데이터 응용 설계와 개발을 위한 고려사항
+- 스트리밍 데이터 아키텍처 시나리오를 바탕으로 e2e 스트리밍 응용 개발 실습
+
+목차:
+- 빅데이터 아키텍처
+  - 스트리밍 데이터 응용을 위한 빅데이터 아키텍처
+- 스트리밍 데이터 플랫폼
+  - Data Source
+  - Event Hub / Message Broker
+  - Data Ingestion / Data Integration
+  - Data Storage
+  - Stream Processing
+  - Data Analytics / SQL / Search
+- Hands-on Labs
 
 ## Prerequisites
 - Git
+  - https://git-scm.com/downloads
 - Docker & Docker Compose
-- Java 8
-- Maven 3.5+
-- Preferred IDE for Java. e.g., Eclipse, IntelliJ
+  - https://www.docker.com/products/docker-desktop
+- Java SE Development Kit 8 (a.k.a Java 8 / JDK 8)
+  - https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+- (optionally) Maven 3.3+
+- (optionally) Preferred IDE for Java. e.g., Eclipse, IntelliJ
+- (optionally) Python 2.x or 3.x
 
 Sanity check for dev env:
 ```
@@ -40,7 +66,7 @@ OS name: "mac os x", version: "10.14.1", arch: "x86_64", family: "mac"
 $ python --version
 Python 2.7.10
 
-# IP address
+# HOST IP address
 $ ifconfig
 
 ```
@@ -56,3 +82,6 @@ $ ls -als
 ```
 
 labs/README.md or https://github.com/youngwookim/skbdc-bda-2019/tree/master/labs
+
+## Links
+TBD

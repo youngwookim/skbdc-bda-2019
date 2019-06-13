@@ -1,0 +1,10 @@
+{"namespace": "com.example.avro",
+ "type": "record",
+ "name": "User",
+ "fields": [
+     {"name": "name", "type": "string", "default": ""},
+     {"name": "favoriteNumber",  "type": "string", "default": ""},
+     {"name": "favoriteColor", "type": "string", "default": ""},
+     {"name": "eventType","type": {"name": "EventType","type": "enum", "symbols": ["meeting"] }}
+ ]
+}

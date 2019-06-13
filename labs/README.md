@@ -16,17 +16,15 @@
 - Kafka Client (Producer)
 - Avro message
 
-2. Message Broker (Kafka)
+2. Event Hub (Kafka)
 
 3. Stream Processing
 - Apache Flink
-- Apache Spark
 - Kafka Streams
 
 4. Data Store
 - RDBMS
-- S3 (minio)
-- KV
+- Object Storage (Minio)
 
 5. Data processing and analytics
 - Python (jupyter notebook)
@@ -40,21 +38,53 @@ Kafka Schema Registry 4.1.2
 Kafka Schema Registry UI 0.9.4
 Kafka Rest Proxy 4.1.2
 ```
+```
+Apache Flink 1.8.0, https://ci.apache.org/projects/flink/flink-docs-release-1.8/
+Presto 302, https://prestosql.io/
+```
 
 Tools:
 - kadmin, https://github.com/BetterCloud/kadmin
 
 ## Stream Data Platform
 
-### Setup Kafka cluster via Docker
+### Setup Presto & Minio(S3) via Docker:
+https://github.com/youngwookim/presto-minio/tree/skbda2019
 ```
-git clone https://github.com/youngwookim/kafka-stack-docker-compose.git -b skbda2019
-cd kafka-stack-docker-compose
+cd /path/to/workspace
+git clone https://github.com/youngwookim/presto-minio.git -b skbda2019
+cd presto-minio
+docker-compose up -d
 
-docker-compose -f full-stack.yml up
-docker ps
+```
 
-docker-compose -f full-stack.yml down
+```
+MINIO_ACCESS_KEY: V42FCGRVMK24JJ8DHUYG
+MINIO_SECRET_KEY: bKhWxVF3kQoLY9kFmt91l+tDrEoZjqnWXzY9Eza
+```
+
+Browse Presto Web UI:
+- http://localhost:8080
+
+Browse Minio Web UI:
+- http://localhost:9000
+
+Refs.
+- PrestoSQL, https://prestosql.io/
+- Minio, https://min.io/
+
+### Setup Kafka cluster via Docker
+https://github.com/youngwookim/kafka-stack-docker-compose/tree/skbda2019
+```
+$ git clone https://github.com/youngwookim/kafka-stack-docker-compose.git -b skbda2019
+$ cd kafka-stack-docker-compose
+$ git branch
+skbda2019
+
+$ docker-compose -f full-stack.yml up
+$ docker ps
+
+$ docker-compose -f full-stack.yml down
 ```
 
 Services:
@@ -64,15 +94,13 @@ Single Kafka: $DOCKER_HOST_IP:9092
 Kafka Schema Registry: $DOCKER_HOST_IP:8081
 Kafka Schema Registry UI: $DOCKER_HOST_IP:8001
 Kafka Rest Proxy: $DOCKER_HOST_IP:8082
-Kafka Topics UI: $DOCKER_HOST_IP:8000
 Kafka Connect: $DOCKER_HOST_IP:8083
-Kafka Connect UI: $DOCKER_HOST_IP:8003
-Zoonavigator Web: $DOCKER_HOST_IP:8004
+
 ```
 
 Container ID for Kafka broker(kafka1):
 ```
-docker ps --filter name=kafka1 --format={{.ID}}
+$ docker ps --filter name=kafka1 --format={{.ID}}
 
 ```
 
@@ -152,10 +180,22 @@ git clone https://github.com/youngwookim/kadmin.git
 cd kadmin
 cd dist
 cp ../application.properties .
+```
+
+Edit confs:
+```
+$ vi application.properties
+
+server.port=9090
+```
+
+Run kadmin:
+```
 java -jar shared-kafka-admin-micro-*.jar --spring.profiles.active=kadmin,local
 ```
 
-http://localhost:8080/kadmin/
+Browse kadmin web:
+http://localhost:9090/kadmin/
 
 1. Basic producer
 
@@ -420,7 +460,8 @@ EventCall message:
 A tool for managing Apache Kafka.
 - https://github.com/yahoo/kafka-manager
 
-http://localhost:9090 (9000 -> 9090)
+Browse kafka-manager web:
+- http://localhost:19000
 
 ## Data Source
 NASDAQ symbols:
@@ -572,20 +613,33 @@ Avro schema:
 
 ## Data Processing
 ### Kafka Streams
-iextrading events -> filter -> 'trading' topic
+iextrading events -> processing(filter) -> 'trading' topic
 
 ### Apache Flink
-'trading' topic -> filter -> Minio(s3)
+'trading' topic -> processing(filter) -> Minio(s3)
 
 https://blog.minio.io/stream-processing-with-apache-flink-and-minio-10da85590787
 
-Running Apache Flink:
+Dataset for example:
+- http://www.gutenberg.org/ebooks/4300
+
+Running Apache Flink (batch) example:
+https://ci.apache.org/projects/flink/flink-docs-release-1.8/dev/batch/examples.html#word-count
+
+Running Flink jobmanager/taskmanager via Docker:
 ```
 cd /path/to/workspace/labs
-cd flink
+cd flink-kafka-streaming/
 cd docker
 docker-compose -f flink.yaml up -d
 
+```
+
+Web UI:
+- Flink jobmanager: http://localhost:18081
+
+Configure S3:
+```
 # jobmanager
 export JOBMANAGER_CONTAINER=$(docker ps --filter name=jobmanager --format={{.ID}})
 docker exec -t -i "$JOBMANAGER_CONTAINER" bash -l
@@ -632,6 +686,13 @@ $ export JOBMANAGER_CONTAINER=$(docker ps --filter name=jobmanager --format={{.I
 $ docker exec -t -i "$JOBMANAGER_CONTAINER" flink run /opt/flink/examples/batch/WordCount.jar \
 --input s3://customer-data-text/customer.csv \
 --output s3://testbucket/output
+
+# create bucket 'test'
+......
+
+$ docker exec -t -i "$JOBMANAGER_CONTAINER" flink run /opt/flink/examples/batch/WordCount.jar \
+--input s3://data/gutenberg/4300-0.txt \
+--output s3://test/wordcount/output
 ```
 
 Verify output:
@@ -644,6 +705,7 @@ Verify output:
 docker pull minio/mc
 docker run -it --entrypoint=/bin/sh minio/mc
 ```
+
 ~/.mc/config.json:
 ```
 {
@@ -682,7 +744,8 @@ docker run -it --entrypoint=/bin/sh minio/mc
 ```
 
 ```
-~/.mc # mc cat local/testbucket/output
+#
+~/.mc # mc cat local/test/gutenberg/output
 5 1
 6 1
 bob 1
@@ -692,7 +755,7 @@ phil 1
 
 ```
 
-Running Kafka-Flink Streaming App:
+Running Kafka-Flink (Trading) Streaming App:
 ```
 $ export JOBMANAGER_CONTAINER=$(docker ps --filter name=jobmanager --format={{.ID}})
 $ docker cp flink-kafka-schema-registry/target/flink-kafka-schema-registry-1.0-SNAPSHOT.jar "$JOBMANAGER_CONTAINER":/flink-kafka-schema-registry-1.0-SNAPSHOT.jar
@@ -707,16 +770,46 @@ $ docker exec -t -i "$JOBMANAGER_CONTAINER" flink run /flink-kafka-schema-regist
 ## Data Analytics / SQL / Dashboard
 
 ### SQL
-Running Presto & Minio(S3):
-```
-cd /path/to/workspace
-git clone https://github.com/youngwookim/presto-minio.git
-cd presto-minio
-```
+Querying the wordcount result in using Presto...
 
+Running Presto CLI:
 ```
-MINIO_ACCESS_KEY: V42FCGRVMK24JJ8DHUYG
-MINIO_SECRET_KEY: bKhWxVF3kQoLY9kFmt91l+tDrEoZjqnWXzY9Eza
+$ docker exec -it presto bash -l
+# presto-cli
+
+presto> show catalogs;
+  Catalog  
+-----------
+ blackhole
+ jmx       
+ memory    
+ minio     
+ system    
+ tpcds     
+ tpch  
+
+ presto> show schemas from minio;
+        Schema       
+ --------------------
+  default            
+  information_schema
+```
+```
+presto> create table minio.default.wordcount (line varchar)
+with (
+  format = 'TEXTFILE',
+  external_location = 's3a://testbucket/'
+  );
+
+presto> select split(line, ' ')[1] as word, split(line, ' ')[2] as cnt from minio.default.wordcount;
+word  | cnt
+-------+-----
+5     | 1   
+6     | 1   
+bob   | 1   
+brune | 1   
+jones | 1   
+phil  | 1  
 ```
 
 2. Data Analytics    
@@ -747,7 +840,10 @@ http://localhost:8888/?token=42a319245ef11fc8b5fbae2480fd3b3da557489b05f4f357
 
 ### Dashboard
 
-1. Superset
+1. Apache Superset (incubating)
+https://superset.incubator.apache.org/
+
+Apache Superset (incubating) is a modern, enterprise-ready business intelligence web application
 ```
 docker run -d --name superset -p 8088:8088 tylerfowler/superset
 ```
@@ -779,7 +875,10 @@ docker run -i -d --rm -m 6G -p 8180:8180 --name metatron-discovery metatronapp/d
 
 ```
 
-Login:
+Browse metatron discovery:
+- http://localhost:8180
+
+Login Auth:
 ```
 admin / admin
 ```
