@@ -2,7 +2,7 @@
   "type":"record",
   "name":"IexTrading",
   "namespace":"com.example.avro",
-  "doc": "Avro schema for IEX Trading API",
+  "doc": "Avro schema for IEX Cloud API",
   "fields":[
     {
       "name":"symbol",
@@ -56,6 +56,32 @@
     },
     {
       "name":"latestPrice",
+      "type" : ["null", "double"]
+    },
+    {
+      "name":"latestSource",
+      "type": ["null", "string"],
+      "avro.java.string":"String"
+    },
+    {
+      "name":"latestTime",
+      "type": ["null", "string"],
+      "avro.java.string":"String"
+    },
+    {
+      "name":"latestUpdate",
+      "type" : ["null", "long"]
+    },
+    {
+      "name":"latestVolume",
+      "type" : ["null", "double"]
+    },
+    {
+      "name":"week52High",
+      "type" : ["null", "double"]
+    },
+    {
+      "name":"week52Low",
       "type" : ["null", "double"]
     }
   ]

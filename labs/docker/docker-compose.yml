@@ -74,18 +74,20 @@ services:
     container_name: presto
     ports:
       - '8080:8080'
-    volumes: 
+    volumes:
       - './presto/minio.properties:/usr/lib/presto/etc/catalog/minio.properties'
+      - './presto/kafka.properties:/usr/lib/presto/etc/catalog/kafka.properties'
+      - './presto/mysql.properties:/usr/lib/presto/etc/catalog/mysql.properties'
       - './hadoop/lib/json-serde-1.3.8-jar-with-dependencies.jar:/usr/lib/presto/lib/plugin/hive-hadoop2/json-serde-1.3.8-jar-with-dependencies.jar'
 
-  hadoop:
-    hostname: hadoop-master
-    image: 'prestodb/cdh5.13-hive:latest'
-    container_name: hadoop-master
-    volumes:
-      - './hadoop/core-site.xml:/etc/hadoop/conf/core-site.xml'
-      - './hadoop/lib/json-udf-1.3.8-jar-with-dependencies.jar:/usr/lib/hive/lib/json-udf-1.3.8-jar-with-dependencies.jar'
-      - './hadoop/lib/json-serde-1.3.8-jar-with-dependencies.jar:/usr/lib/hive/lib/json-serde-1.3.8-jar-with-dependencies.jar'
+#  hadoop:
+#    hostname: hadoop-master
+#    image: 'prestodb/cdh5.13-hive:latest'
+#    container_name: hadoop-master
+#    volumes:
+#      - './hadoop/core-site.xml:/etc/hadoop/conf/core-site.xml'
+#      - './hadoop/lib/json-udf-1.3.8-jar-with-dependencies.jar:/usr/lib/hive/lib/json-udf-1.3.8-jar-with-dependencies.jar'
+#      - './hadoop/lib/json-serde-1.3.8-jar-with-dependencies.jar:/usr/lib/hive/lib/json-serde-1.3.8-jar-with-dependencies.jar'
 
   minio:
     hostname: minio
@@ -100,4 +102,3 @@ services:
       MINIO_ACCESS_KEY: V42FCGRVMK24JJ8DHUYG
       MINIO_SECRET_KEY: bKhWxVF3kQoLY9kFmt91l+tDrEoZjqnWXzY9Eza
     command: server /data
-

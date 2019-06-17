@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.example</groupId>
-	<artifactId>kafka-streams-dba</artifactId>
+	<artifactId>kafka-streams-bda</artifactId>
 	<version>1.0.0</version>
 
 	<repositories>
@@ -14,10 +14,11 @@
 	</repositories>
 
 	<properties>
-	<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<kafka.version>1.1.1</kafka.version>
 		<confluent.version>4.1.1</confluent.version>
+		<avro.version>1.8.2</avro.version>
 	</properties>
 
 	<dependencies>
@@ -49,7 +50,7 @@
 		<dependency>
 			<groupId>org.apache.avro</groupId>
 			<artifactId>avro</artifactId>
-			<version>1.9.0</version>
+			<version>${avro.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -58,7 +59,7 @@
 			<plugin>
 				<groupId>org.apache.avro</groupId>
 				<artifactId>avro-maven-plugin</artifactId>
-				<version>1.9.0</version>
+				<version>${avro.version}</version>
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>
@@ -82,7 +83,7 @@
 					</descriptors>
 					<archive>
 						<manifest>
-							<mainClass>io.confluent.kafka.schemaregistry.rest.SchemaRegistryMain</mainClass>
+							<mainClass>com.example.KafkaStreamsProcessor</mainClass>
 						</manifest>
 					</archive>
 					<attach>false</attach>

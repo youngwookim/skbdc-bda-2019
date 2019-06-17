@@ -1,6 +1,7 @@
 package com.example;
 
 import java.io.PrintStream;
+import java.time.Instant;
 import java.util.Properties;
 import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.flink.api.common.functions.FilterFunction;
@@ -50,11 +51,10 @@ public class FlinkKakfaStreamingApp {
 
       @Override
       public boolean filter(IexTrading value) throws Exception {
-        // Netflix?
-        if (value.getSymbol().toString().equals("NFLX")) {
+        // Netflix or Facebook?
+        if (value.getSymbol().toString().equals("NFLX") || value.getSymbol().toString().equals("FB")) {
           return true;
         }
-        // else...
         return false;
       }
     }).map(new MapFunction<IexTrading, String>() {
@@ -63,7 +63,20 @@ public class FlinkKakfaStreamingApp {
 
       @Override
       public String map(IexTrading value) throws Exception {
-        return value.getSymbol() + "," + value.getLatestPrice();
+        StringBuilder sb = new StringBuilder();
+        sb.append(Instant.now().getEpochSecond());
+        sb.append("\001");
+        sb.append(value.getSymbol());
+        sb.append("\001");
+        sb.append(value.getHigh());
+        sb.append("\001");
+        sb.append(value.getLow());
+        sb.append("\001");
+        sb.append(value.getLatestPrice());
+        sb.append("\001");
+        sb.append(value.getLatestUpdate());
+        
+        return sb.toString();
       }
     });
 

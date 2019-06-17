@@ -4,7 +4,7 @@
 
 Start containers:
 ```
-$ docker-compose up -d
+$ docker-compose up
 
 ```
 
@@ -18,11 +18,8 @@ $ docker-compose down
 - Single Kafka: $DOCKER_HOST_IP:9092
 - Kafka Schema Registry: $DOCKER_HOST_IP:8081
 - Kafka Schema Registry UI: $DOCKER_HOST_IP:8001
-- Kafka Rest Proxy: $DOCKER_HOST_IP:8082
-- Kafka Connect: $DOCKER_HOST_IP:8083
 - Minio: $DOCKER_HOST_IP:9000
 - Presto: $DOCKER_HOST_IP:8080
-- Flink jobmanager UI: $DOCKER_HOST_IP:18081
 
 # Refs.
 - https://github.com/youngwookim/kafka-stack-docker-compose
@@ -36,9 +33,11 @@ Run those commands in a shell:
 #!/bin/bash
 
 # Stop all running containers
-docker stop $(docker ps -aq)
+$ docker stop $(docker ps -aq)
+
 # Delete all containers
-docker rm $(docker ps -a -q)
+$ docker rm $(docker ps -a -q)
+
 # Delete all images
-docker rmi $(docker images -q)
+$ docker rmi $(docker images -q)
 ```

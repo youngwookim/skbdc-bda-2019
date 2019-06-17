@@ -11,11 +11,11 @@ import org.apache.avro.message.BinaryMessageDecoder;
 import org.apache.avro.message.SchemaStore;
 
 @SuppressWarnings("all")
-/** Avro schema for IEX Trading API */
+/** Avro schema for IEX Cloud API */
 @org.apache.avro.specific.AvroGenerated
 public class IexTrading extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 1265079371784499269L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"IexTrading\",\"namespace\":\"com.example.avro\",\"doc\":\"Avro schema for IEX Trading API\",\"fields\":[{\"name\":\"symbol\",\"type\":\"string\",\"doc\":\"Stock Symbol\"},{\"name\":\"companyName\",\"type\":[\"null\",\"string\"],\"doc\":\"Company Name\",\"avro.java.string\":\"String\"},{\"name\":\"primaryExchange\",\"type\":[\"null\",\"string\"],\"avro.java.string\":\"String\"},{\"name\":\"sector\",\"type\":[\"null\",\"string\"],\"avro.java.string\":\"String\"},{\"name\":\"calculationPrice\",\"type\":[\"null\",\"string\"],\"avro.java.string\":\"String\"},{\"name\":\"open\",\"type\":[\"null\",\"double\"]},{\"name\":\"openTime\",\"type\":[\"null\",\"long\"]},{\"name\":\"close\",\"type\":[\"null\",\"double\"]},{\"name\":\"closeTime\",\"type\":[\"null\",\"long\"]},{\"name\":\"high\",\"type\":[\"null\",\"double\"]},{\"name\":\"low\",\"type\":[\"null\",\"double\"]},{\"name\":\"latestPrice\",\"type\":[\"null\",\"double\"]}]}");
+  private static final long serialVersionUID = 698730973278456961L;
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"IexTrading\",\"namespace\":\"com.example.avro\",\"doc\":\"Avro schema for IEX Cloud API\",\"fields\":[{\"name\":\"symbol\",\"type\":\"string\",\"doc\":\"Stock Symbol\"},{\"name\":\"companyName\",\"type\":[\"null\",\"string\"],\"doc\":\"Company Name\",\"avro.java.string\":\"String\"},{\"name\":\"primaryExchange\",\"type\":[\"null\",\"string\"],\"avro.java.string\":\"String\"},{\"name\":\"sector\",\"type\":[\"null\",\"string\"],\"avro.java.string\":\"String\"},{\"name\":\"calculationPrice\",\"type\":[\"null\",\"string\"],\"avro.java.string\":\"String\"},{\"name\":\"open\",\"type\":[\"null\",\"double\"]},{\"name\":\"openTime\",\"type\":[\"null\",\"long\"]},{\"name\":\"close\",\"type\":[\"null\",\"double\"]},{\"name\":\"closeTime\",\"type\":[\"null\",\"long\"]},{\"name\":\"high\",\"type\":[\"null\",\"double\"]},{\"name\":\"low\",\"type\":[\"null\",\"double\"]},{\"name\":\"latestPrice\",\"type\":[\"null\",\"double\"]},{\"name\":\"latestSource\",\"type\":[\"null\",\"string\"],\"avro.java.string\":\"String\"},{\"name\":\"latestTime\",\"type\":[\"null\",\"string\"],\"avro.java.string\":\"String\"},{\"name\":\"latestUpdate\",\"type\":[\"null\",\"long\"]},{\"name\":\"latestVolume\",\"type\":[\"null\",\"double\"]},{\"name\":\"week52High\",\"type\":[\"null\",\"double\"]},{\"name\":\"week52Low\",\"type\":[\"null\",\"double\"]}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
@@ -66,6 +66,12 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
   @Deprecated public java.lang.Double high;
   @Deprecated public java.lang.Double low;
   @Deprecated public java.lang.Double latestPrice;
+  @Deprecated public java.lang.CharSequence latestSource;
+  @Deprecated public java.lang.CharSequence latestTime;
+  @Deprecated public java.lang.Long latestUpdate;
+  @Deprecated public java.lang.Double latestVolume;
+  @Deprecated public java.lang.Double week52High;
+  @Deprecated public java.lang.Double week52Low;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -88,8 +94,14 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
    * @param high The new value for high
    * @param low The new value for low
    * @param latestPrice The new value for latestPrice
+   * @param latestSource The new value for latestSource
+   * @param latestTime The new value for latestTime
+   * @param latestUpdate The new value for latestUpdate
+   * @param latestVolume The new value for latestVolume
+   * @param week52High The new value for week52High
+   * @param week52Low The new value for week52Low
    */
-  public IexTrading(java.lang.CharSequence symbol, java.lang.CharSequence companyName, java.lang.CharSequence primaryExchange, java.lang.CharSequence sector, java.lang.CharSequence calculationPrice, java.lang.Double open, java.lang.Long openTime, java.lang.Double close, java.lang.Long closeTime, java.lang.Double high, java.lang.Double low, java.lang.Double latestPrice) {
+  public IexTrading(java.lang.CharSequence symbol, java.lang.CharSequence companyName, java.lang.CharSequence primaryExchange, java.lang.CharSequence sector, java.lang.CharSequence calculationPrice, java.lang.Double open, java.lang.Long openTime, java.lang.Double close, java.lang.Long closeTime, java.lang.Double high, java.lang.Double low, java.lang.Double latestPrice, java.lang.CharSequence latestSource, java.lang.CharSequence latestTime, java.lang.Long latestUpdate, java.lang.Double latestVolume, java.lang.Double week52High, java.lang.Double week52Low) {
     this.symbol = symbol;
     this.companyName = companyName;
     this.primaryExchange = primaryExchange;
@@ -102,6 +114,12 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
     this.high = high;
     this.low = low;
     this.latestPrice = latestPrice;
+    this.latestSource = latestSource;
+    this.latestTime = latestTime;
+    this.latestUpdate = latestUpdate;
+    this.latestVolume = latestVolume;
+    this.week52High = week52High;
+    this.week52Low = week52Low;
   }
 
   public org.apache.avro.Schema getSchema() { return SCHEMA$; }
@@ -120,6 +138,12 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
     case 9: return high;
     case 10: return low;
     case 11: return latestPrice;
+    case 12: return latestSource;
+    case 13: return latestTime;
+    case 14: return latestUpdate;
+    case 15: return latestVolume;
+    case 16: return week52High;
+    case 17: return week52Low;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -140,6 +164,12 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
     case 9: high = (java.lang.Double)value$; break;
     case 10: low = (java.lang.Double)value$; break;
     case 11: latestPrice = (java.lang.Double)value$; break;
+    case 12: latestSource = (java.lang.CharSequence)value$; break;
+    case 13: latestTime = (java.lang.CharSequence)value$; break;
+    case 14: latestUpdate = (java.lang.Long)value$; break;
+    case 15: latestVolume = (java.lang.Double)value$; break;
+    case 16: week52High = (java.lang.Double)value$; break;
+    case 17: week52Low = (java.lang.Double)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -339,6 +369,102 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
   }
 
   /**
+   * Gets the value of the 'latestSource' field.
+   * @return The value of the 'latestSource' field.
+   */
+  public java.lang.CharSequence getLatestSource() {
+    return latestSource;
+  }
+
+  /**
+   * Sets the value of the 'latestSource' field.
+   * @param value the value to set.
+   */
+  public void setLatestSource(java.lang.CharSequence value) {
+    this.latestSource = value;
+  }
+
+  /**
+   * Gets the value of the 'latestTime' field.
+   * @return The value of the 'latestTime' field.
+   */
+  public java.lang.CharSequence getLatestTime() {
+    return latestTime;
+  }
+
+  /**
+   * Sets the value of the 'latestTime' field.
+   * @param value the value to set.
+   */
+  public void setLatestTime(java.lang.CharSequence value) {
+    this.latestTime = value;
+  }
+
+  /**
+   * Gets the value of the 'latestUpdate' field.
+   * @return The value of the 'latestUpdate' field.
+   */
+  public java.lang.Long getLatestUpdate() {
+    return latestUpdate;
+  }
+
+  /**
+   * Sets the value of the 'latestUpdate' field.
+   * @param value the value to set.
+   */
+  public void setLatestUpdate(java.lang.Long value) {
+    this.latestUpdate = value;
+  }
+
+  /**
+   * Gets the value of the 'latestVolume' field.
+   * @return The value of the 'latestVolume' field.
+   */
+  public java.lang.Double getLatestVolume() {
+    return latestVolume;
+  }
+
+  /**
+   * Sets the value of the 'latestVolume' field.
+   * @param value the value to set.
+   */
+  public void setLatestVolume(java.lang.Double value) {
+    this.latestVolume = value;
+  }
+
+  /**
+   * Gets the value of the 'week52High' field.
+   * @return The value of the 'week52High' field.
+   */
+  public java.lang.Double getWeek52High() {
+    return week52High;
+  }
+
+  /**
+   * Sets the value of the 'week52High' field.
+   * @param value the value to set.
+   */
+  public void setWeek52High(java.lang.Double value) {
+    this.week52High = value;
+  }
+
+  /**
+   * Gets the value of the 'week52Low' field.
+   * @return The value of the 'week52Low' field.
+   */
+  public java.lang.Double getWeek52Low() {
+    return week52Low;
+  }
+
+  /**
+   * Sets the value of the 'week52Low' field.
+   * @param value the value to set.
+   */
+  public void setWeek52Low(java.lang.Double value) {
+    this.week52Low = value;
+  }
+
+  /**
    * Creates a new IexTrading RecordBuilder.
    * @return A new IexTrading RecordBuilder
    */
@@ -384,6 +510,12 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
     private java.lang.Double high;
     private java.lang.Double low;
     private java.lang.Double latestPrice;
+    private java.lang.CharSequence latestSource;
+    private java.lang.CharSequence latestTime;
+    private java.lang.Long latestUpdate;
+    private java.lang.Double latestVolume;
+    private java.lang.Double week52High;
+    private java.lang.Double week52Low;
 
     /** Creates a new Builder */
     private Builder() {
@@ -444,6 +576,30 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
         this.latestPrice = data().deepCopy(fields()[11].schema(), other.latestPrice);
         fieldSetFlags()[11] = true;
       }
+      if (isValidValue(fields()[12], other.latestSource)) {
+        this.latestSource = data().deepCopy(fields()[12].schema(), other.latestSource);
+        fieldSetFlags()[12] = true;
+      }
+      if (isValidValue(fields()[13], other.latestTime)) {
+        this.latestTime = data().deepCopy(fields()[13].schema(), other.latestTime);
+        fieldSetFlags()[13] = true;
+      }
+      if (isValidValue(fields()[14], other.latestUpdate)) {
+        this.latestUpdate = data().deepCopy(fields()[14].schema(), other.latestUpdate);
+        fieldSetFlags()[14] = true;
+      }
+      if (isValidValue(fields()[15], other.latestVolume)) {
+        this.latestVolume = data().deepCopy(fields()[15].schema(), other.latestVolume);
+        fieldSetFlags()[15] = true;
+      }
+      if (isValidValue(fields()[16], other.week52High)) {
+        this.week52High = data().deepCopy(fields()[16].schema(), other.week52High);
+        fieldSetFlags()[16] = true;
+      }
+      if (isValidValue(fields()[17], other.week52Low)) {
+        this.week52Low = data().deepCopy(fields()[17].schema(), other.week52Low);
+        fieldSetFlags()[17] = true;
+      }
     }
 
     /**
@@ -499,6 +655,30 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
       if (isValidValue(fields()[11], other.latestPrice)) {
         this.latestPrice = data().deepCopy(fields()[11].schema(), other.latestPrice);
         fieldSetFlags()[11] = true;
+      }
+      if (isValidValue(fields()[12], other.latestSource)) {
+        this.latestSource = data().deepCopy(fields()[12].schema(), other.latestSource);
+        fieldSetFlags()[12] = true;
+      }
+      if (isValidValue(fields()[13], other.latestTime)) {
+        this.latestTime = data().deepCopy(fields()[13].schema(), other.latestTime);
+        fieldSetFlags()[13] = true;
+      }
+      if (isValidValue(fields()[14], other.latestUpdate)) {
+        this.latestUpdate = data().deepCopy(fields()[14].schema(), other.latestUpdate);
+        fieldSetFlags()[14] = true;
+      }
+      if (isValidValue(fields()[15], other.latestVolume)) {
+        this.latestVolume = data().deepCopy(fields()[15].schema(), other.latestVolume);
+        fieldSetFlags()[15] = true;
+      }
+      if (isValidValue(fields()[16], other.week52High)) {
+        this.week52High = data().deepCopy(fields()[16].schema(), other.week52High);
+        fieldSetFlags()[16] = true;
+      }
+      if (isValidValue(fields()[17], other.week52Low)) {
+        this.week52Low = data().deepCopy(fields()[17].schema(), other.week52Low);
+        fieldSetFlags()[17] = true;
       }
     }
 
@@ -978,6 +1158,240 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
       return this;
     }
 
+    /**
+      * Gets the value of the 'latestSource' field.
+      * @return The value.
+      */
+    public java.lang.CharSequence getLatestSource() {
+      return latestSource;
+    }
+
+    /**
+      * Sets the value of the 'latestSource' field.
+      * @param value The value of 'latestSource'.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder setLatestSource(java.lang.CharSequence value) {
+      validate(fields()[12], value);
+      this.latestSource = value;
+      fieldSetFlags()[12] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'latestSource' field has been set.
+      * @return True if the 'latestSource' field has been set, false otherwise.
+      */
+    public boolean hasLatestSource() {
+      return fieldSetFlags()[12];
+    }
+
+
+    /**
+      * Clears the value of the 'latestSource' field.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder clearLatestSource() {
+      latestSource = null;
+      fieldSetFlags()[12] = false;
+      return this;
+    }
+
+    /**
+      * Gets the value of the 'latestTime' field.
+      * @return The value.
+      */
+    public java.lang.CharSequence getLatestTime() {
+      return latestTime;
+    }
+
+    /**
+      * Sets the value of the 'latestTime' field.
+      * @param value The value of 'latestTime'.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder setLatestTime(java.lang.CharSequence value) {
+      validate(fields()[13], value);
+      this.latestTime = value;
+      fieldSetFlags()[13] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'latestTime' field has been set.
+      * @return True if the 'latestTime' field has been set, false otherwise.
+      */
+    public boolean hasLatestTime() {
+      return fieldSetFlags()[13];
+    }
+
+
+    /**
+      * Clears the value of the 'latestTime' field.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder clearLatestTime() {
+      latestTime = null;
+      fieldSetFlags()[13] = false;
+      return this;
+    }
+
+    /**
+      * Gets the value of the 'latestUpdate' field.
+      * @return The value.
+      */
+    public java.lang.Long getLatestUpdate() {
+      return latestUpdate;
+    }
+
+    /**
+      * Sets the value of the 'latestUpdate' field.
+      * @param value The value of 'latestUpdate'.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder setLatestUpdate(java.lang.Long value) {
+      validate(fields()[14], value);
+      this.latestUpdate = value;
+      fieldSetFlags()[14] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'latestUpdate' field has been set.
+      * @return True if the 'latestUpdate' field has been set, false otherwise.
+      */
+    public boolean hasLatestUpdate() {
+      return fieldSetFlags()[14];
+    }
+
+
+    /**
+      * Clears the value of the 'latestUpdate' field.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder clearLatestUpdate() {
+      latestUpdate = null;
+      fieldSetFlags()[14] = false;
+      return this;
+    }
+
+    /**
+      * Gets the value of the 'latestVolume' field.
+      * @return The value.
+      */
+    public java.lang.Double getLatestVolume() {
+      return latestVolume;
+    }
+
+    /**
+      * Sets the value of the 'latestVolume' field.
+      * @param value The value of 'latestVolume'.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder setLatestVolume(java.lang.Double value) {
+      validate(fields()[15], value);
+      this.latestVolume = value;
+      fieldSetFlags()[15] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'latestVolume' field has been set.
+      * @return True if the 'latestVolume' field has been set, false otherwise.
+      */
+    public boolean hasLatestVolume() {
+      return fieldSetFlags()[15];
+    }
+
+
+    /**
+      * Clears the value of the 'latestVolume' field.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder clearLatestVolume() {
+      latestVolume = null;
+      fieldSetFlags()[15] = false;
+      return this;
+    }
+
+    /**
+      * Gets the value of the 'week52High' field.
+      * @return The value.
+      */
+    public java.lang.Double getWeek52High() {
+      return week52High;
+    }
+
+    /**
+      * Sets the value of the 'week52High' field.
+      * @param value The value of 'week52High'.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder setWeek52High(java.lang.Double value) {
+      validate(fields()[16], value);
+      this.week52High = value;
+      fieldSetFlags()[16] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'week52High' field has been set.
+      * @return True if the 'week52High' field has been set, false otherwise.
+      */
+    public boolean hasWeek52High() {
+      return fieldSetFlags()[16];
+    }
+
+
+    /**
+      * Clears the value of the 'week52High' field.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder clearWeek52High() {
+      week52High = null;
+      fieldSetFlags()[16] = false;
+      return this;
+    }
+
+    /**
+      * Gets the value of the 'week52Low' field.
+      * @return The value.
+      */
+    public java.lang.Double getWeek52Low() {
+      return week52Low;
+    }
+
+    /**
+      * Sets the value of the 'week52Low' field.
+      * @param value The value of 'week52Low'.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder setWeek52Low(java.lang.Double value) {
+      validate(fields()[17], value);
+      this.week52Low = value;
+      fieldSetFlags()[17] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'week52Low' field has been set.
+      * @return True if the 'week52Low' field has been set, false otherwise.
+      */
+    public boolean hasWeek52Low() {
+      return fieldSetFlags()[17];
+    }
+
+
+    /**
+      * Clears the value of the 'week52Low' field.
+      * @return This builder.
+      */
+    public com.example.avro.IexTrading.Builder clearWeek52Low() {
+      week52Low = null;
+      fieldSetFlags()[17] = false;
+      return this;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public IexTrading build() {
@@ -995,6 +1409,12 @@ public class IexTrading extends org.apache.avro.specific.SpecificRecordBase impl
         record.high = fieldSetFlags()[9] ? this.high : (java.lang.Double) defaultValue(fields()[9]);
         record.low = fieldSetFlags()[10] ? this.low : (java.lang.Double) defaultValue(fields()[10]);
         record.latestPrice = fieldSetFlags()[11] ? this.latestPrice : (java.lang.Double) defaultValue(fields()[11]);
+        record.latestSource = fieldSetFlags()[12] ? this.latestSource : (java.lang.CharSequence) defaultValue(fields()[12]);
+        record.latestTime = fieldSetFlags()[13] ? this.latestTime : (java.lang.CharSequence) defaultValue(fields()[13]);
+        record.latestUpdate = fieldSetFlags()[14] ? this.latestUpdate : (java.lang.Long) defaultValue(fields()[14]);
+        record.latestVolume = fieldSetFlags()[15] ? this.latestVolume : (java.lang.Double) defaultValue(fields()[15]);
+        record.week52High = fieldSetFlags()[16] ? this.week52High : (java.lang.Double) defaultValue(fields()[16]);
+        record.week52Low = fieldSetFlags()[17] ? this.week52Low : (java.lang.Double) defaultValue(fields()[17]);
         return record;
       } catch (java.lang.Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);

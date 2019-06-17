@@ -1,9 +1,9 @@
 https://ci.apache.org/projects/flink/flink-docs-stable/tutorials/local_setup.html
 
-1. Download Flink
+1. Download Flink tarball
 
 ```
-wget http://apache.tt.co.kr/flink/flink-1.8.0/flink-1.8.0-bin-scala_2.11.tgz
+wget http://mirror.apache-kr.org/flink/flink-1.8.0/flink-1.8.0-bin-scala_2.11.tgz
 
 ```
 
@@ -17,10 +17,15 @@ s3.access-key: V42FCGRVMK24JJ8DHUYG
 s3.secret-key: bKhWxVF3kQoLY9kFmt91l+tDrEoZjqnWXzY9Eza
 ```
 
+Copy required jars into 'lib' directory
+- flink-s3-fs-hadoop
 ```
-cp opt/flink-s3-fs-hadoop-1.7.2.jar lib/ 
+$ cp opt/flink-s3-fs-hadoop-1.8.0.jar lib/
 
 ```
+- link-shaded-hadoop
+https://repo.maven.apache.org/maven2/org/apache/flink/flink-shaded-hadoop-2-uber/2.8.3-7.0/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar
+`
 
 3. Start a Local Flink Cluster
 ```
@@ -42,5 +47,3 @@ $ bin/flink run /path/to/flink-kafka-streaming-1.0.0.jar \
 --schema-registry-url http://172.16.0.68:8081 \
 --group.id cgrp1
 ```
-
-

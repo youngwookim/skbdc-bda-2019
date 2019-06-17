@@ -21,7 +21,6 @@ import com.opencsv.CSVReader;
 
 import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 import pl.zankowski.iextrading4j.api.stocks.Quote;
-import pl.zankowski.iextrading4j.client.IEXApiClient;
 import pl.zankowski.iextrading4j.client.IEXCloudClient;
 import pl.zankowski.iextrading4j.client.IEXCloudTokenBuilder;
 import pl.zankowski.iextrading4j.client.IEXTradingApiVersion;
@@ -68,7 +67,7 @@ public class KafkaMessageGen {
 
 					// See https://github.com/WojciechZankowski/iextrading4j
 					final IEXCloudClient iexTradingClient = IEXTradingClient
-							.create(IEXTradingApiVersion.IEX_CLOUD_BETA_SANDBOX,
+							.create(IEXTradingApiVersion.IEX_CLOUD_V1_SANDBOX,
 									new IEXCloudTokenBuilder()
 											.withPublishableToken("Tpk_18dfe6cebb4f41ffb219b9680f9acaf2")
 											.withSecretToken("Tsk_3eedff6f5c284e1a8b9bc16c54dd1af3").build());
@@ -77,20 +76,27 @@ public class KafkaMessageGen {
 								.executeRequest(new QuoteRequestBuilder().withSymbol(symbol).build());
 						if (quote != null) {
 							System.out.println(quote);
+							
 							iex.setCompanyName(quote.getCompanyName());
 							iex.setPrimaryExchange(quote.getPrimaryExchange());
 							iex.setSector(quote.getSector());
 							iex.setCalculationPrice(quote.getCalculationPrice());
 							iex.setOpen(quote.getOpen().doubleValue());
-							iex.setOpenTime(quote.getOpenTime().longValue());
+							iex.setOpenTime(quote.getOpenTime());
 							iex.setClose(quote.getClose().doubleValue());
 							iex.setCloseTime(quote.getCloseTime());
 							iex.setHigh(quote.getHigh().doubleValue());
 							iex.setLow(quote.getLow().doubleValue());
 							iex.setLatestPrice(quote.getLatestPrice().doubleValue());
+							iex.setLatestSource(quote.getLatestSource().toString());
+							iex.setLatestTime(quote.getLatestTime().toString());
+							iex.setLatestUpdate(quote.getLatestUpdate());
+							iex.setLatestVolume(quote.getLatestVolume().doubleValue());
+							iex.setWeek52High(quote.getWeek52High().doubleValue());
+							iex.setWeek52Low(quote.getWeek52Low().doubleValue());
 						}
 					} catch (Exception e) {
-						// ignore unknown symbol or network errors
+						// ignore errors
 						e.printStackTrace();
 					}
 

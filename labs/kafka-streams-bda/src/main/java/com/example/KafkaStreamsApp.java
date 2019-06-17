@@ -1,23 +1,19 @@
 package com.example;
 
+import java.util.Arrays;
 import java.util.Properties;
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
-import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.KStream;
-import org.apache.kafka.streams.kstream.KTable;
-import org.apache.kafka.streams.kstream.KeyValueMapper;
 import org.apache.kafka.streams.kstream.Predicate;
-import org.apache.kafka.streams.kstream.Produced;
 import com.example.avro.IexTrading;
 import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
 
 public class KafkaStreamsApp {
+  public static final String[] MY_STOCK = new String[] {"GOOG", "FB"};
 
   public static void main(String[] args) {
     final String bootstrapServers = args.length > 0 ? args[0] : "localhost:9092";
@@ -40,8 +36,8 @@ public class KafkaStreamsApp {
   static KafkaStreams buildTradingQuoteFeed(final String bootstrapServers,
       final String schemaRegistryUrl, final String stateDir) {
     final Properties streamsConfiguration = new Properties();
-    streamsConfiguration.put(StreamsConfig.APPLICATION_ID_CONFIG, "kafka-streams-avro-example");
-    streamsConfiguration.put(StreamsConfig.CLIENT_ID_CONFIG, "kafka-streams-avro-example-client");
+    streamsConfiguration.put(StreamsConfig.APPLICATION_ID_CONFIG, "kafka-streams-avro");
+    streamsConfiguration.put(StreamsConfig.CLIENT_ID_CONFIG, "kafka-streams-avro-client");
     streamsConfiguration.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
     streamsConfiguration.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG,
         schemaRegistryUrl);
@@ -58,7 +54,8 @@ public class KafkaStreamsApp {
 
     final KStream<String, IexTrading> filtered = feeds.filter(new Predicate<String, IexTrading>() {
       public boolean test(final String dummy, final IexTrading value) {
-        return value.getSymbol().equals("FB");
+        // My stock?
+        return Arrays.stream(MY_STOCK).anyMatch(value.getSymbol().toString()::equals);
       }
     });
 

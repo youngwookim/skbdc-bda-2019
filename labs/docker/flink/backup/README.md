@@ -3,7 +3,7 @@
 
 E.g.,
 
-./build.sh --from-release --flink-version 1.8.0 --scala-version 2.11 --image-name flink-s3
+./build.sh --from-release --flink-version 1.8.0 --scala-version 2.11
 ```
 
 see, https://github.com/apache/flink/tree/master/flink-contrib/docker-flink
