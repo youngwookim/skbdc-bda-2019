@@ -36,3 +36,5 @@ hs_err_pid*
 .jupyter/
 .local/
 .mvn/
+
+.bash_history

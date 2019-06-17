@@ -2,12 +2,14 @@ package com.example;
 
 import java.io.PrintStream;
 import java.util.Properties;
+import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.flink.api.common.functions.FilterFunction;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.common.serialization.Encoder;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.core.fs.Path;
 import org.apache.flink.formats.avro.registry.confluent.ConfluentRegistryAvroDeserializationSchema;
+import org.apache.flink.runtime.state.filesystem.FsStateBackend;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -20,16 +22,8 @@ import com.example.avro.IexTrading;
 public class FlinkKakfaStreamingApp {
 
   public static void main(String[] args) throws Exception {
-    // parse input arguments
     final ParameterTool parameterTool = ParameterTool.fromArgs(args);
-    if (parameterTool.getNumberOfParameters() < 5) {
-      System.out.println(
-          "Missing parameters!\n" + "Usage: Kafka --input-topic <topic> --output-topic <topic> "
-              + "--bootstrap.servers <kafka brokers> "
-              + "--schema-registry-url <confluent schema registry> --group.id <some id>"
-              + "--output-path <output path>");
-      return;
-    }
+
     Properties config = new Properties();
     config.setProperty("bootstrap.servers", parameterTool.getRequired("bootstrap.servers"));
     config.setProperty("group.id", parameterTool.getRequired("group.id"));
@@ -37,33 +31,46 @@ public class FlinkKakfaStreamingApp {
     String outputPath = parameterTool.getRequired("output-path");
 
     StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-    env.getConfig().disableSysoutLogging();
+    // Use S3 as the backend store to store checkpoints for recovery
+    env.setStateBackend(new FsStateBackend("s3://flink/checkpoints"));
+    // Perform checkpoint every 10 secs
+    env.enableCheckpointing(10000L);
+    // Inject parameters to be globally available
+    env.getConfig().setGlobalJobParameters(parameterTool);
 
     DataStreamSource<IexTrading> input = env.addSource(new FlinkKafkaConsumer<>(
         parameterTool.getRequired("input-topic"),
         ConfluentRegistryAvroDeserializationSchema.forSpecific(IexTrading.class, schemaRegistryUrl),
         config).setStartFromEarliest());
 
-    // Flink stream operators,
-    // https://ci.apache.org/projects/flink/flink-docs-release-1.8/dev/stream/operators/
+    // Flink stream operators
     DataStream<String> myFavorites = input.filter(new FilterFunction<IexTrading>() {
+
+      private static final long serialVersionUID = 8572223950396068676L;
 
       @Override
       public boolean filter(IexTrading value) throws Exception {
-        // Apple, Facebook, Netflix
-        if (value.getSymbol().equals("APPL") || value.getSymbol().equals("FB")
-            || value.getSymbol().equals("NFLX")) {
+        // Netflix?
+        if (value.getSymbol().toString().equals("NFLX")) {
           return true;
         }
+        // else...
         return false;
       }
-    }).map(new GenRecord());
+    }).map(new MapFunction<IexTrading, String>() {
+
+      private static final long serialVersionUID = -2765462581425595714L;
+
+      @Override
+      public String map(IexTrading value) throws Exception {
+        return value.getSymbol() + "," + value.getLatestPrice();
+      }
+    });
 
     // For debug
     myFavorites.print();
 
     // Flink Streaming Sink
-    // https://ci.apache.org/projects/flink/flink-docs-stable/dev/connectors/streamfile_sink.html
     final SinkFunction<String> sink = StreamingFileSink
         .forRowFormat(new Path(outputPath), (Encoder<String>) (element, stream) -> {
           PrintStream out = new PrintStream(stream);
@@ -73,14 +80,5 @@ public class FlinkKakfaStreamingApp {
     myFavorites.addSink(sink);
 
     env.execute("Flink Kakfa Streaming App");
-  }
-
-  public static final class GenRecord implements MapFunction<IexTrading, String> {
-
-    @Override
-    public String map(IexTrading value) throws Exception {
-      return value.getSymbol() + "," + value.getLatestPrice();
-    }
-
   }
 }

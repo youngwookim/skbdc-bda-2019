@@ -209,7 +209,7 @@
     </dependency>
   </dependencies>
   <properties>
-    <avro.version>1.9.0</avro.version>
+    <avro.version>1.8.2</avro.version>
     <java.version>1.8</java.version>
     <scala.binary.version>2.11</scala.binary.version>
     <flink.version>1.8.0</flink.version>

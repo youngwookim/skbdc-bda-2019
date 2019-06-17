@@ -31,9 +31,8 @@ Designing Modern Streaming Data Applications
   - https://www.docker.com/products/docker-desktop
 - Java SE Development Kit 8 (a.k.a Java 8 / JDK 8)
   - https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
-- (optionally) Maven 3.3+
-- (optionally) Preferred IDE for Java. e.g., Eclipse, IntelliJ
-- (optionally) Python 2.x or 3.x
+- (선택) 선호하는 Java IDE, e.g., Eclipse, IntelliJ
+- (선택) Python 3.x
 
 Sanity check for dev env:
 ```
@@ -64,10 +63,12 @@ OS name: "mac os x", version: "10.14.1", arch: "x86_64", family: "mac"
 
 # python
 $ python --version
-Python 2.7.10
+Python 3.4.0
 
 # HOST IP address
-$ ifconfig
+$ ip addr show
+
+$ ipconfig getifaddr en0
 
 ```
 

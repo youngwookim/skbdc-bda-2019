@@ -3,10 +3,10 @@
 * [Dataflow](#data-flow)
 * [Software Stack](#software-stack)
 * [Stream Data Platform](#stream-data-platform)
-  * [Setup Kafka cluster via Docker](#setup-kafka-cluster-via-docker)
-* [Sanity check](#sanity-check)
 * [Data Source](#data-source)
 * [Data Processing](#data-processing)
+* [Streaming Data Integration](#streaming-data-integration)
+* [Data Analytics / SQL / Dashboard](#data-analytics)
 
 ## Data Flow
 
@@ -33,34 +33,95 @@
 ## Software stack
 ```
 Zookeeper version: 3.4.9
-Kafka version: 1.1.1
-Kafka Schema Registry 4.1.2
+Kafka version: 2.0.0
+Kafka Schema Registry 5.0.0 (confluent)
 Kafka Schema Registry UI 0.9.4
-Kafka Rest Proxy 4.1.2
+
 ```
+
 ```
 Apache Flink 1.8.0, https://ci.apache.org/projects/flink/flink-docs-release-1.8/
 Presto 302, https://prestosql.io/
+Minio, https://min.io/
+```
+
+```
+Apache Avro 1.8.2
 ```
 
 Tools:
 - kadmin, https://github.com/BetterCloud/kadmin
+- Kafka Manager, https://github.com/yahoo/kafka-manager
 
 ## Stream Data Platform
 
-### Setup Presto & Minio(S3) via Docker:
-https://github.com/youngwookim/presto-minio/tree/skbda2019
+### Setup Docker containers for dev
+
+IP Address:
 ```
-cd /path/to/workspace
-git clone https://github.com/youngwookim/presto-minio.git -b skbda2019
-cd presto-minio
-docker-compose up -d
+$ ipconfig getifaddr en0
+192.168.1.4
 
 ```
 
+```
+$ docker --version
+$ docker network ls
+$ docker network prune
+
+```
+
+Running Docker containers:
+```
+$ cd labs/docker
+$ cat docker-compose.yml
+$ docker-compose up -d
+$ docker-compose ps
+
+```
+
+Ref.
+- Docker, https://docs.docker.com/
+- Docker Compose, https://docs.docker.com/compose/
+
+#### mc (Minio client)
+```
+$ docker pull minio/mc
+$ docker run --net docker_default -it --entrypoint=/bin/sh minio/mc
+
+# mc
+
+```
+
+Edit ~/.mc/config.json
 ```
 MINIO_ACCESS_KEY: V42FCGRVMK24JJ8DHUYG
 MINIO_SECRET_KEY: bKhWxVF3kQoLY9kFmt91l+tDrEoZjqnWXzY9Eza
+```
+
+```
+(snip)
+
+		"local": {
+			"url": "http://minio:9000",
+			"accessKey": "V42FCGRVMK24JJ8DHUYG",
+			"secretKey": "bKhWxVF3kQoLY9kFmt91l+tDrEoZjqnWXzY9Eza",
+			"api": "S3v4",
+			"lookup": "auto"
+		},
+
+(snip)
+```
+
+Services:
+```
+Single Zookeeper: $DOCKER_HOST_IP:2181
+Single Kafka: $DOCKER_HOST_IP:9092
+Kafka Schema Registry: $DOCKER_HOST_IP:18081
+Kafka Schema Registry UI: $DOCKER_HOST_IP:8001
+Kafka Rest Proxy: $DOCKER_HOST_IP:8082
+Kafka Connect: $DOCKER_HOST_IP:8083
+
 ```
 
 Browse Presto Web UI:
@@ -72,31 +133,6 @@ Browse Minio Web UI:
 Refs.
 - PrestoSQL, https://prestosql.io/
 - Minio, https://min.io/
-
-### Setup Kafka cluster via Docker
-https://github.com/youngwookim/kafka-stack-docker-compose/tree/skbda2019
-```
-$ git clone https://github.com/youngwookim/kafka-stack-docker-compose.git -b skbda2019
-$ cd kafka-stack-docker-compose
-$ git branch
-skbda2019
-
-$ docker-compose -f full-stack.yml up
-$ docker ps
-
-$ docker-compose -f full-stack.yml down
-```
-
-Services:
-```
-Single Zookeeper: $DOCKER_HOST_IP:2181
-Single Kafka: $DOCKER_HOST_IP:9092
-Kafka Schema Registry: $DOCKER_HOST_IP:8081
-Kafka Schema Registry UI: $DOCKER_HOST_IP:8001
-Kafka Rest Proxy: $DOCKER_HOST_IP:8082
-Kafka Connect: $DOCKER_HOST_IP:8083
-
-```
 
 Container ID for Kafka broker(kafka1):
 ```
@@ -111,7 +147,7 @@ Networking of (Kafka) docker compose, https://github.com/wurstmeister/kafka-dock
 ### Sanity check
 * CLI
 ```
-# Basic Ops
+-- Basic Ops
 $ export KAFKA_BROKER=$(docker ps --filter name=kafka1 --format={{.ID}})
 $ docker exec -t -i "$KAFKA_BROKER" \
 kafka-topics --create --topic foo --partitions 1 --replication-factor 1 \
@@ -141,6 +177,10 @@ bash -c "seq 100 | kafka-console-producer --request-required-acks 1 \
 $ docker exec -t -i "$KAFKA_BROKER" \
 kafka-console-consumer --bootstrap-server kafka1:9092 --topic foo --from-beginning --max-messages 100
 
+-- delete a topic
+$ export KAFKA_BROKER=$(docker ps --filter name=kafka1 --format={{.ID}})
+$ docker exec -t -i "$KAFKA_BROKER" \
+kafka-topics --zookeeper zoo1:2181 --delete --topic topicName
 ```
 
 or
@@ -154,32 +194,36 @@ $  docker exec -t -i c832ec907848 bash -l
 
 ```
 
-Kafka topic for test:
+bin scripts for Kafka:
+```
+$ docker exec -t -i "$KAFKA_BROKER" bash -l
+
+# echo "KAFKA_HOME=$KAFKA_HOME"
+# cd $KAFKA_HOME/bin
+# ls -als
+```
+
+Create Kafka topics for test:
 ```
 $ export KAFKA_BROKER=$(docker ps --filter name=kafka1 --format={{.ID}})
 
-# topic1
+-- eventcall topic
 $ docker exec -t -i "$KAFKA_BROKER" \
-kafka-topics --create --topic topic1 --partitions 4 --replication-factor 1 \
---if-not-exists --zookeeper zoo1:2181
-
-# eventcall
-$ docker exec -t -i "$KAFKA_BROKER" \
-kafka-topics --create --topic topic1 --partitions 4 --replication-factor 1 \
+kafka-topics --create --topic eventcall --partitions 4 --replication-factor 1 \
 --if-not-exists --zookeeper zoo1:2181
 
 ```
 
-* Web (kadmin)
+* Web UI for Kafka producer/consumer (kadmin)
 https://github.com/BetterCloud/kadmin
 
 Running kadmin (on localhost):
 ```
-cd /path/to/workspace
-git clone https://github.com/youngwookim/kadmin.git
-cd kadmin
-cd dist
-cp ../application.properties .
+$ cd /path/to/workspace
+$ git clone https://github.com/youngwookim/kadmin.git
+$ cd kadmin
+$ cd dist
+$ cp ../application.properties .
 ```
 
 Edit confs:
@@ -191,7 +235,7 @@ server.port=9090
 
 Run kadmin:
 ```
-java -jar shared-kafka-admin-micro-*.jar --spring.profiles.active=kadmin,local
+$ java -jar shared-kafka-admin-micro-*.jar --spring.profiles.active=kadmin,local
 ```
 
 Browse kadmin web:
@@ -199,14 +243,15 @@ http://localhost:9090/kadmin/
 
 1. Basic producer
 
-String -> String
+```String``` -> ```String```
 
 2. Avro producer
+```JSON``` -> AVRO -> ```ByteArray```
 
 Schema Registry UI
 - http://localhost:8001
 
-EventCall Schema:
+'EventCall' Avro Schema:
 ```
 {
   "type": "record",
@@ -464,10 +509,11 @@ Browse kafka-manager web:
 - http://localhost:19000
 
 ## Data Source
+
 NASDAQ symbols:
 - https://datahub.io/core/nasdaq-listings
 
-nasdaq-listed
+1. nasdaq-listed
 - https://datahub.io/core/nasdaq-listings/r/nasdaq-listed.csv
 ```
 Field information
@@ -481,7 +527,7 @@ Financial Status	6	string
 Round Lot Size	7	number
 ```
 
-nasdaq-listed-symbols
+2. nasdaq-listed-symbols
 - https://datahub.io/core/nasdaq-listings/r/nasdaq-listed-symbols.csv
 ```
 Field information
@@ -611,171 +657,241 @@ Avro schema:
 }
 ```
 
+Create a Kafka topic for IEX Trading:
+```
+$ docker exec -t -i "$KAFKA_BROKER" \
+kafka-topics --create --topic iextrading --partitions 4 --replication-factor 1 \
+--if-not-exists --zookeeper zoo1:2181
+
+```
+
+Register Avro Schema for IEX Trading:
+- http://127.0.0.1:8001
+
+Kafka Message Generator...
+
+Running Kafka producer:
+```
+$ cd labs/kafka-message-gen
+$ ./mvnw clean package
+$ java -jar target/kafka-message-gen-1.0.0.jar
+
+```
+```
+Symbol=FB
+Quote{symbol=FB, companyName=Facebook, Inc., primaryExchange=null, sector=null, calculationPrice=close, open=188.1, openTime=1613799922941, close=187.68, closeTime=1610185776566, high=190.56, low=183, latestPrice=183.17, latestSource=Close, latestTime=June 14, 2019, latestUpdate=1609902084093, latestVolume=17195294, iexRealtimePrice=null, iexRealtimeSize=null, iexLastUpdated=null, delayedPrice=188.4, delayedPriceTime=1590343466287, extendedPrice=184.8, extendedChange=1.62, extendedChangePercent=0.00868, extendedPriceTime=1570669439147, previousClose=185.19, change=3.88, changePercent=0.02212, iexMarketPercent=null, iexVolume=null, avgTotalVolume=16434724, iexBidPrice=null, iexBidSize=null, iexAskPrice=null, iexAskSize=null, marketCap=522186618859, peRatio=27.74, week52High=223.9, week52Low=128.45, ytdChange=0.371689, bidPrice=null, bidSize=null, askPrice=null, askSize=null}
+#### received callback [iextrading-0@37], exception: [null]
+Symbol=NFLX
+Quote{symbol=NFLX, companyName=Netflix, Inc., primaryExchange=null, sector=null, calculationPrice=close, open=352.92, openTime=1583691150214, close=352.42, closeTime=1590417119800, high=351.2, low=351.735, latestPrice=344.04, latestSource=Close, latestTime=June 14, 2019, latestUpdate=1563432508620, latestVolume=5249750, iexRealtimePrice=null, iexRealtimeSize=null, iexLastUpdated=null, delayedPrice=343.58, delayedPriceTime=1594427482911, extendedPrice=346.7, extendedChange=-0.34, extendedChangePercent=-0.001, extendedPriceTime=1584178246960, previousClose=356.68, change=-3.7, changePercent=-0.0111, iexMarketPercent=null, iexVolume=null, avgTotalVolume=5631433, iexBidPrice=null, iexBidSize=null, iexAskPrice=null, iexAskSize=null, marketCap=152890721645, peRatio=122.41, week52High=439.7, week52Low=234.7, ytdChange=0.26444, bidPrice=null, bidSize=null, askPrice=null, askSize=null}
+#### received callback [iextrading-0@38], exception: [null]
+Symbol=MSFT
+Quote{symbol=MSFT, companyName=Microsoft Corp., primaryExchange=null, sector=null, calculationPrice=close, open=136.8, openTime=1630935233671, close=133.77, closeTime=1573817919535, high=138.63, low=136.99, latestPrice=133.11, latestSource=Close, latestTime=June 14, 2019, latestUpdate=1634458207937, latestVolume=18207777, iexRealtimePrice=null, iexRealtimeSize=null, iexLastUpdated=null, delayedPrice=135.43, delayedPriceTime=1585253140767, extendedPrice=136.43, extendedChange=-0.07, extendedChangePercent=-0.00054, extendedPriceTime=1573169910318, previousClose=136.86, change=0.14, changePercent=0.001, iexMarketPercent=null, iexVolume=null, avgTotalVolume=25821913, iexBidPrice=null, iexBidSize=null, iexAskPrice=null, iexAskSize=null, marketCap=1053054544596, peRatio=29.97, week52High=137.93, week52Low=97.18, ytdChange=0.3224, bidPrice=null, bidSize=null, askPrice=null, askSize=null}
+#### received callback [iextrading-0@39], exception: [null]
+
+(snip)
+```
+
+확인?
+- (STDOUT) logs from 'kafka-message-gen'
+- 1. (console) Avro consumer
+- 2. kadmin
+
 ## Data Processing
-### Kafka Streams
-iextrading events -> processing(filter) -> 'trading' topic
 
-### Apache Flink
-'trading' topic -> processing(filter) -> Minio(s3)
+### Apache Kafka + Apache Flink
+Kafka 'iextrading' topic -> processing(filter) & Streaming file sink -> Minio(s3)
 
-https://blog.minio.io/stream-processing-with-apache-flink-and-minio-10da85590787
+#### Setup Flink local cluster
+https://ci.apache.org/projects/flink/flink-docs-stable/tutorials/local_setup.html
+
+1. Download Flink
+https://flink.apache.org/downloads.html#apache-flink-180
+```
+$ cd labs/flink-local
+$ wget https://www.apache.org/dyn/closer.lua/flink/flink-1.8.0/flink-1.8.0-bin-scala_2.11.tgz
+
+or
+
+-- Download Flink binary from https://flink.apache.org
+```
+
+2. Edit Flink conf file
+```
+$ cd flink-[VERSION]
+$ vi conf/flink-conf.yaml
+
+```
+```
+# Minio(S3)
+state.backend: filesystem
+s3.endpoint: http://127.0.0.1:9000
+s3.path-style: true
+s3.access-key: V42FCGRVMK24JJ8DHUYG
+s3.secret-key: bKhWxVF3kQoLY9kFmt91l+tDrEoZjqnWXzY9Eza
+```
+
+3. Copy required jars into 'lib' directory
+
+```
+$ cp opt/flink-s3-fs-hadoop-1.8.0.jar lib/
+
+```
+
+https://repo.maven.apache.org/maven2/org/apache/flink/flink-shaded-hadoop-2-uber/2.8.3-7.0/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar
+
+4. Start a Local Flink Cluster
+Starting Flink local cluster:
+```
+$ ./bin/start-cluster.sh  # Start Flink
+$ ps aux | grep flink
+```
+
+Stopping Flink local cluster:
+```
+$ bin/stop-cluster.sh
+
+```
+
+for Windows: https://ci.apache.org/projects/flink/flink-docs-release-1.8/tutorials/flink_on_windows.html
+
+#### Apache Flink (batch) example
+
+Data flow:
+- Trading(Quote) API -> Kafka Producer -> Kafka
 
 Dataset for example:
 - http://www.gutenberg.org/ebooks/4300
 
-Running Apache Flink (batch) example:
-https://ci.apache.org/projects/flink/flink-docs-release-1.8/dev/batch/examples.html#word-count
+Source code for Apache Flink (batch) example:
+- https://ci.apache.org/projects/flink/flink-docs-release-1.8/dev/batch/examples.html#word-count
 
-Running Flink jobmanager/taskmanager via Docker:
+Create Minio(S3) bucket via Minio WebUI:
+- http://127.0.0.1:9000
 ```
-cd /path/to/workspace/labs
-cd flink-kafka-streaming/
-cd docker
-docker-compose -f flink.yaml up -d
-
-```
-
-Web UI:
-- Flink jobmanager: http://localhost:18081
-
-Configure S3:
-```
-# jobmanager
-export JOBMANAGER_CONTAINER=$(docker ps --filter name=jobmanager --format={{.ID}})
-docker exec -t -i "$JOBMANAGER_CONTAINER" bash -l
-apt-get update && apt-get install -y procps vim
-
-su - flink
-bash -l
-vi /opt/flink/conf/flink-conf.yaml
-......
-state.backend: filesystem
-s3.endpoint: http://[HOST_IP]:9000
-s3.path-style: true
 s3.access-key: V42FCGRVMK24JJ8DHUYG
 s3.secret-key: bKhWxVF3kQoLY9kFmt91l+tDrEoZjqnWXzY9Eza
-
-E,g.,
-state.backend: filesystem
-s3.endpoint: http://172.16.0.68:9000
-s3.path-style: true
-s3.access-key: V42FCGRVMK24JJ8DHUYG
-s3.secret-key: bKhWxVF3kQoLY9kFmt91l+tDrEoZjqnWXzY9Eza
-
 ```
 
-Flink and S3
-https://ci.apache.org/projects/flink/flink-docs-stable/ops/deployment/aws.html#shaded-hadooppresto-s3-file-systems-recommended
-```
-docker exec -t -i "$JOBMANAGER_CONTAINER" bash -l
-cp /opt/flink/opt/flink-s3-fs-presto-1.8.0.jar /opt/flink/lib/
-```
+Creating required buckets:
+- 'test'
+- 'flink' (for checkpoint)
+- 'iextrading' for Stock quote data
 
+Create 'iextrading' bucket:
 ```
-# taskmanager
-export TASKMANAGER_CONTAINER=$(docker ps --filter name=taskmanager --format={{.ID}})
-docker exec -t -i "$TASKMANAGER_CONTAINER" bash -l
-apt-get update && apt-get install -y procps vim
+# mc mb local/iextrading
 ```
 
-Restart Flink... (docker-compose down && up...)
-
-Flink example (wordcount):
+Create 'flink' bucket for Flink checkpoint:
 ```
-$ export JOBMANAGER_CONTAINER=$(docker ps --filter name=jobmanager --format={{.ID}})
-$ docker exec -t -i "$JOBMANAGER_CONTAINER" flink run /opt/flink/examples/batch/WordCount.jar \
---input s3://customer-data-text/customer.csv \
---output s3://testbucket/output
+# mc mb local/flink
+```
 
-# create bucket 'test'
-......
+Flink web UI:
+- Flink jobmanager: http://localhost:8081
 
-$ docker exec -t -i "$JOBMANAGER_CONTAINER" flink run /opt/flink/examples/batch/WordCount.jar \
+Running Flink (batch) example - wordcount:
+```
+$ cd flink
+$ cd flink-[VERSION]
+$ bin/flink run examples/batch/WordCount.jar \
 --input s3://data/gutenberg/4300-0.txt \
 --output s3://test/wordcount/output
 ```
 
-Verify output:
-```
-# verify the result in using Minio Web:
-......
+Verify example's output:
+- verify the result in using Minio Web: http://localhost:9000
 
-# verify the result in using Minio mc:
-
-docker pull minio/mc
-docker run -it --entrypoint=/bin/sh minio/mc
+- verify the result in using Minio mc:
 ```
-
-~/.mc/config.json:
-```
-{
-	"version": "9",
-	"hosts": {
-		"gcs": {
-			"url": "https://storage.googleapis.com",
-			"accessKey": "YOUR-ACCESS-KEY-HERE",
-			"secretKey": "YOUR-SECRET-KEY-HERE",
-			"api": "S3v2",
-			"lookup": "dns"
-		},
-		"local": {
-			"url": "http://localhost:9000",
-			"accessKey": "",
-			"secretKey": "",
-			"api": "S3v4",
-			"lookup": "auto"
-		},
-		"play": {
-			"url": "https://play.min.io:9000",
-			"accessKey": "Q3AM3UQ867SPQQA43P2F",
-			"secretKey": "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG",
-			"api": "S3v4",
-			"lookup": "auto"
-		},
-		"s3": {
-			"url": "https://s3.amazonaws.com",
-			"accessKey": "YOUR-ACCESS-KEY-HERE",
-			"secretKey": "YOUR-SECRET-KEY-HERE",
-			"api": "S3v4",
-			"lookup": "dns"
-		}
-	}
-}
-```
-
-```
-#
-~/.mc # mc cat local/test/gutenberg/output
-5 1
-6 1
-bob 1
-brune 1
-jones 1
-phil 1
+# mc cat local/test/wordcount/output
 
 ```
 
-Running Kafka-Flink (Trading) Streaming App:
+#### Runnig Flink-Kafka streaming application
+
+For local cluster:
 ```
-$ export JOBMANAGER_CONTAINER=$(docker ps --filter name=jobmanager --format={{.ID}})
-$ docker cp flink-kafka-schema-registry/target/flink-kafka-schema-registry-1.0-SNAPSHOT.jar "$JOBMANAGER_CONTAINER":/flink-kafka-schema-registry-1.0-SNAPSHOT.jar
-$ docker exec -t -i "$JOBMANAGER_CONTAINER" flink run /flink-kafka-schema-registry-1.0-SNAPSHOT.jar \
---input-topic hello \
---output-topic world \
---bootstrap.servers kafka1:19092 \
---schema-registry-url http://kafka-schema-registry:8089/ \
+$ cd labs/flink-local
+$ cd flink-1.7.2
+$ bin/flink run ../../flink-kafka-streaming/target/flink-kafka-streaming-1.0.0.jar \
+--input-topic iextrading \
+--output-path s3://iextrading/filtered/ \
+--bootstrap.servers localhost:9092 \
+--schema-registry-url http://localhost:18081 \
 --group.id cgrp1
 ```
 
-## Data Analytics / SQL / Dashboard
+Apache Flink Dashboard:
+- http://localhost:8081
+
+### Kafka Streams
+'iextrading' events -> Kafka Streams, processing(filter) -> 'iextrading_filtered' Kafka topic
+
+
+## Streaming Data Integration
+Apache Kafka - 'iextrading_filtered' topic -> Apache Gobblin -> MySQL
+
+DDL for MySQL:
+```
+create database iextrading;
+
+use iextrading;
+
+create table trading_filtered (symbol varchar(10) primary key, );
+
+```
+
+Running MySQL server:
+```
+docker run --name mysql1 --network docker_default -e MYSQL_ROOT_PASSWORD=mypasswd -d mysql:5.7
+
+```
+
+Running MySQL CLI:
+```
+docker run -it --network docker_default --rm mysql mysql -hmysql1 -uroot -pmypasswd
+
+```
+
+https://github.com/youngwookim/dockerized-gobblin/tree/gobblin-0.14.0
+
+See labs/README.md
+
+Build Gobblin image:
+```
+$ git clone https://github.com/youngwookim/dockerized-gobblin -b gobblin-0.14.0
+$ ./build-docker.sh
+
+or
+
+$ docker build --build-arg VERSION=0.14.0 -t gradiant/gobblin:0.14.0
+```
+
+Run Gobblin container:
+```
+$ docker run -it -v "$PWD"/etc/gobblin:/etc/gobblin gradiant/gobblin:0.14.0
+
+# cd /gobblin-dist
+# bin/gobblin-standalone.sh start
+```
+
+## Data Analytics
+Data Analytics / SQL / Dashboard
 
 ### SQL
-Querying the wordcount result in using Presto...
+Querying the wordcount result in using [Presto](https://prestosql.io/)
+
+Presto is a distributed SQL query engine designed to query large data sets distributed over one or more heterogeneous data sources.
 
 Running Presto CLI:
 ```
 $ docker exec -it presto bash -l
 # presto-cli
+
+or
+
+$ docker exec -it presto presto-cli
 
 presto> show catalogs;
   Catalog  
@@ -790,26 +906,45 @@ presto> show catalogs;
 
  presto> show schemas from minio;
         Schema       
- --------------------
-  default            
+ --------------------            
   information_schema
+
+create schema minio.default;
+
+-- create 'skbda' bucket...
+create schema minio.skbda with (location = 's3a://skbda/');
+
 ```
+
 ```
+presto> create table minio.default.gutenberg (txt varchar)
+with (
+  format = 'TEXTFILE',
+  external_location = 's3a://data/gutenberg/'
+  );
+
 presto> create table minio.default.wordcount (line varchar)
 with (
   format = 'TEXTFILE',
-  external_location = 's3a://testbucket/'
+  external_location = 's3a://test/wordcount/'
   );
 
 presto> select split(line, ' ')[1] as word, split(line, ' ')[2] as cnt from minio.default.wordcount;
-word  | cnt
--------+-----
-5     | 1   
-6     | 1   
-bob   | 1   
-brune | 1   
-jones | 1   
-phil  | 1  
+
+presto> create view minio.default.v_wordcount as select split(line, ' ')[1] as word, split(line, ' ')[2] as cnt from minio.default.wordcount;
+
+presto> create table minio.skbda.wordcount_top10 as select * from minio.default.v_wordcount order by cnt desc limit 100;
+
+presto> select count(1) from minio.default.v_wordcount;
+
+presto> select * from minio.default.v_wordcount;
+
+(snip)
+```
+
+Running Gobblin job (standalone deployment):
+```
+
 ```
 
 2. Data Analytics    
@@ -871,7 +1006,7 @@ SQL Lab:
 https://metatron.app/download/installation-guide-docker/
 
 ```
-docker run -i -d --rm -m 6G -p 8180:8180 --name metatron-discovery metatronapp/discovery:latest
+docker run --network docker_default -i -d --rm -m 6G -p 8180:8180 --name metatron-discovery metatronapp/discovery:latest
 
 ```
 

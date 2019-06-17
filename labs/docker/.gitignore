@@ -1,0 +1,7 @@
+minio/config/*
+minio/data/.minio.sys/*
+minio/data/iextrading
+minio/data/test
+minio/data/flink
+
+
