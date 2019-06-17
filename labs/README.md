@@ -693,8 +693,8 @@ Quote{symbol=MSFT, companyName=Microsoft Corp., primaryExchange=null, sector=nul
 
 확인?
 - (STDOUT) logs from 'kafka-message-gen'
-- 1. (console) Avro consumer
-- 2. kadmin
+- (console) Avro consumer
+- (web) kadmin
 
 ## Data Processing
 
@@ -787,7 +787,12 @@ Create 'flink' bucket for Flink checkpoint:
 # mc mb local/flink
 ```
 
-Flink web UI:
+Create 'test' bucket for Flink batch example:
+```
+# mc mb local/test
+```
+
+Flink Dashboard(web):
 - Flink jobmanager: http://localhost:8081
 
 Running Flink (batch) example - wordcount:
