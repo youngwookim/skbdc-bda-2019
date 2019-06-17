@@ -31,6 +31,7 @@ Designing Modern Streaming Data Applications
   - https://www.docker.com/products/docker-desktop
 - Java SE Development Kit 8 (a.k.a Java 8 / JDK 8)
   - https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+- 텍스트 에디터, e.g., VIM, notepad++
 - (선택) 선호하는 Java IDE, e.g., Eclipse, IntelliJ
 - (선택) Python 3.x
 
