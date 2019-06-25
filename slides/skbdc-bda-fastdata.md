@@ -691,10 +691,20 @@ $ ipconfig getifaddr en0
 <span style="font-size:14pt">
 
 ```bash
-$ docker --version
+# Stop all running containers
+$ docker stop $(docker ps -aq)
+
+# Delete all containers
+$ docker rm $(docker ps -a -q)
+
+# Delete all images
+$ docker rmi $(docker images -q)
+
 $ docker network ls
 $ docker network prune
+```
 
+```bash
 $ cd labs/docker
 $ export DOCKER_HOST_IP=192.168.1.4
 $ cat docker-compose.yml
