@@ -220,24 +220,34 @@ Hi-Tech DT 팀, Data Labs, ICT기술센터, SK 텔레콤
 
 --- 
 ### (Analytical) Data Store
-
+<span style="font-size:18pt">
+  
 - **Application characteristics**
 - Performance
 - Efficiency
 - Cost Efficiency
 - Quality
 
+</span>
+
 #### One size fits all?
+<span style="font-size:14pt">
+  
 - RDBMS
 - Distributed File System
 - Object Storage
 - Key/Value Store
 - Search Engine
 - Time Series Database
+- OLAP
 - Event Bus
+
+</span>
 
 ---
 ### Analytics / SQL / Dashboard & etc.
+<span style="font-size:14pt">
+  
 - Data Applications
   - API
 - Querying Data
@@ -247,10 +257,12 @@ Hi-Tech DT 팀, Data Labs, ICT기술센터, SK 텔레콤
   - Apache Zeppelin  
 - Data Discovery
   - metatron discovery
+- OLAP
 - ML / DL
 - Search
 - Dashboard
-- ......
+
+</span>
 
 ---
 ### OSS for Streaming Data Platform
@@ -391,8 +403,10 @@ https://www.confluent.io/blog/using-apache-kafka-drive-cutting-edge-machine-lear
   - Redis
 - Search
   - Apache Solr, ElasticSearch
+- OLAP
+  - Apache Druid, Apache Pinot, Apache Kylin
 - Event Bus
-  - Apache Kafka, Apache Pulsar or MQs...
+  - Apache Kafka, Apache Pulsar & MQs...
 
 ---
 #### File Format
@@ -469,7 +483,7 @@ https://www.confluent.io/blog/using-apache-kafka-drive-cutting-edge-machine-lear
 - 데이터 저장
   - Object Storage, RDBMS
 - 데이터 처리 및 응용
-  - SQL, Jupyter Notebook (Python)
+  - Java, Python, SQL, Jupyter Notebook (Python)
 
 ![bg](https://i0.wp.com/blog.tradesmartonline.in/wp-content/uploads/2017/08/Algo-Trading-Scope.jpg?w=759&ssl=1)
 
