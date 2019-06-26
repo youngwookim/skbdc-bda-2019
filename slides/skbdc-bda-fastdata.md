@@ -1084,10 +1084,16 @@ System.out.println(quote);
 
 </span>
 
-##### Avro schema for IEX Cloud 'Quote':
+##### Test for IEX Trading API
 <span style="font-size:14pt">
   
-- [labs/avro/iextrading.avsc](labs/avro/iextrading.avsc)
+```bash
+$ cd labs/iextrading-test
+$ ./mvnw clean package
+$ ./mvnw exec:java -Dexec.mainClass="com.example.IexTradingTest"
+
+
+```
 
 </span>
 
@@ -1104,9 +1110,15 @@ kafka-topics --create --topic iextrading --partitions 4 --replication-factor 1 \
 
 ```
 
-IEX Cloud `Quote` Avro 스키마 등록(선택):
- - http://127.0.0.1:8001
- - labs/avro/iextrading.avsc
+Avro schema for IEX Cloud 'Quote':
+
+<span style="font-size:14pt">
+
+- IEX Cloud `Quote` Avro 스키마 등록(선택)
+  - [labs/avro/iextrading.avsc](labs/avro/iextrading.avsc)
+
+</span>
+
 
 Running Kafka producer:
 ```
