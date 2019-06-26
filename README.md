@@ -1,8 +1,6 @@
 # skbdc-bda-2019
 
-SK Big Data Course 2019 - Big Data Architecture (Fast Data Architecture)
-
-Designing Modern Streaming Data Applications
+SK New ICT Academy, Big Data Course 2019 - Big Data Architecture (Designing Modern Streaming Data Applications)
 
 과정 개요:
 - 스트리밍 데이터 처리 시스템을 구성하기 위해 필요한 구성 요소에 대하여 학습
