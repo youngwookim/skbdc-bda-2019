@@ -119,7 +119,7 @@ Hi-Tech DT 팀, Data Labs, ICT기술센터, SK 텔레콤
 - Data Ingestion / Integration
 - Data Storage
 - Stream Processing
-- Data Analytics / SQL / Dashboard / Search & etc.
+- Data Analytics, SQL, Dashboard, Search & etc.
 
 <span style="font-size:14pt">
   
@@ -1056,13 +1056,13 @@ Browse kafka-manager web:
 
 - https://iexcloud.io/docs/api/
 - IEX Cloud is a platform that makes financial data and services accessible to everyone.
-- iextrading4j
-  - https://github.com/WojciechZankowski/iextrading4j
+- iextrading4j, https://github.com/WojciechZankowski/iextrading4j
 
 </span>
 
 <span style="font-size:12pt">
-
+  
+E.g., Quote Request:
 ```java
 final IEXCloudClient iexTradingClient = IEXTradingClient.create(IEXTradingApiVersion.IEX_CLOUD_BETA_SANDBOX,
               new IEXCloudTokenBuilder()
@@ -1648,11 +1648,12 @@ presto> CREATE TABLE minio.skbdc.stock_2019
 
 ---
 ## Data Analytics    
-##### Building `datascience` Docker image
+##### Building ==JupyterLab== Docker image
 <span style="font-size:14pt">
   
 https://github.com/youngwookim/my-docker-stacks
 - JupyterLab
+  - JupyterLab is the next-generation web-based user interface for Project Jupyter.
 - Python modules... boto3, pymysql, pandas, etc.
 
 ```bash
