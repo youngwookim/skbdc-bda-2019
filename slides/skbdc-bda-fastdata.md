@@ -392,6 +392,8 @@ https://www.confluent.io/blog/using-apache-kafka-drive-cutting-edge-machine-lear
 
 ---
 #### OSS for Data Store
+<span style="font-size:18pt">
+  
 - RDBMS
 - Distributed File System
   - Hadoop HDFS
@@ -400,13 +402,17 @@ https://www.confluent.io/blog/using-apache-kafka-drive-cutting-edge-machine-lear
   - Minio, Ceph
 - KV Store
   - Apache HBase, Apache Cassandra
-  - Redis
+  - Redis, FoundationDB
 - Search
   - Apache Solr, ElasticSearch
 - OLAP
   - Apache Druid, Apache Pinot, Apache Kylin
 - Event Bus
   - Apache Kafka, Apache Pulsar & MQs...
+- etc.
+  - CockroachDB, Apache Kudu...
+
+</span>
 
 ---
 #### File Format
@@ -419,14 +425,14 @@ https://www.confluent.io/blog/using-apache-kafka-drive-cutting-edge-machine-lear
 - Apache ORC**
 - Apache Parquet**
 
-
 ** Columnar storage :arrow_right: ==immutable data and analytics queries==
 
 ---
 ### OSS for Data Analytics / SQL / Dashboard & etc.
 
 ##### Data Analytics
-- Python, R
+- R
+- Python, Java, Scala ...
 - Jupyter Notebook, Apache Zeppelin
 - ML/DL Libs.
 
@@ -612,7 +618,7 @@ Download https://github.com/youngwookim/skbdc-bda-2019/archive/master.zip or htt
 
 ---
 ## 상세 데이터 흐름
-<span style="font-size:14pt">
+<span style="font-size:16pt">
 
 ##### Source
 - Kafka Client (Producer)
@@ -633,7 +639,7 @@ Download https://github.com/youngwookim/skbdc-bda-2019/archive/master.zip or htt
 
 ---
 ## 소프트웨어 스택
-<span style="font-size:14pt">
+<span style="font-size:16pt">
 
 - Apache Zookeeper 3.4.9
 - Apache Kafka 2.0.0
@@ -675,12 +681,17 @@ Download https://github.com/youngwookim/skbdc-bda-2019/archive/master.zip or htt
 
 ---
 ### Metatron Discovery
+<span style="font-size:18pt">
+  
 - Intro. Metatron Discovery
   - https://www.youtube.com/channel/UC5IdHK8qBiN9zVgD7SvO41g
 
 - Demo
   - https://discovery.metatron.app/
- 
+
+</span>
+
+
 ---
 ### Apache Spark?
 ![100% center](https://66.media.tumblr.com/6b96148b24f8e9fcd9e7c48ba8ef3556/tumblr_pgqixhDpT21vishcqo1_400.jpg)
@@ -975,7 +986,7 @@ Browse kafka-manager web:
 
 </span>
 
-###### How to add 'Local' cluster:
+##### How to add 'Local' cluster:
 <span style="font-size:14pt">
   
 - Cluster > `Add Cluster`
