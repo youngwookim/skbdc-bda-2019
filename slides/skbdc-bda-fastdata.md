@@ -9,6 +9,7 @@ SK Big Data Course 2019, <br/> Big Data Architecture
 <!-- <!-- footer: Copyright (c) 2019 SK Telecom Co. Ltd. All Rights Reserved. -->
 
 ---
+<!-- $size: A4 -->
 # Big Data Architecture
 **Designing Modern Streaming Data Applications**
 
@@ -38,7 +39,7 @@ Hi-Tech DT 팀, Data Labs, ICT기술센터, SK 텔레콤
 <!-- page_number: true -->
 # 개요
 <span style="font-size:20pt">
-  
+
 - 스트리밍 데이터 처리 시스템을 구성하기 위해 필요한 구성 요소에 대하여 학습
 - 실시간 데이터를 위한 오픈소스 프로젝트와 해당 프로젝트의 특징 학습
 - 성공적인 데이터 응용 설계와 개발을 위한 고려사항
@@ -67,7 +68,7 @@ Hi-Tech DT 팀, Data Labs, ICT기술센터, SK 텔레콤
 ## Data Application?
 ### 데이터 애플리케이션
 <span style="font-size:20 pt">
-  
+
 - 데이터 수집
 - 데이터 저장
 - 데이터 처리
@@ -77,7 +78,7 @@ Hi-Tech DT 팀, Data Labs, ICT기술센터, SK 텔레콤
 
 ### 빅데이터 애플리케이션(시스템) 패턴
 <span style="font-size:20pt">
-  
+
 - 데이터 생성
 - 데이터 수집
 - 데이터 저장 / 처리
@@ -122,7 +123,7 @@ Hi-Tech DT 팀, Data Labs, ICT기술센터, SK 텔레콤
 - Data Analytics, SQL, Dashboard, Search & etc.
 
 <span style="font-size:14pt">
-  
+
 1. [Fast Data Architectures for Streaming Applications (2nd Edition)](https://www.lightbend.com/ebooks/fast-data-architectures-for-streaming-applications-oreilly-2nd-edition)
 
 </span>
@@ -209,19 +210,19 @@ Hi-Tech DT 팀, Data Labs, ICT기술센터, SK 텔레콤
 - Supprting API, DSL, SQL
 - Handling Delayed, Missing and Out-of-Order Data
 - Integrate Stored and Streaming Data
-- Guarantee Data Safety and Availability 
-- Partition and Scale Applications Automatically 
+- Guarantee Data Safety and Availability
+- Partition and Scale Applications Automatically
 
 <span style="font-size:14pt">
-  
+
 \* [The 8 Requirements of Real-Time Stream Processing](http://cs.brown.edu/~ugur/8rulesSigRec.pdf)
 
 </span>
 
---- 
+---
 ### (Analytical) Data Store
 <span style="font-size:18pt">
-  
+
 - **Application characteristics**
 - Performance
 - Efficiency
@@ -232,7 +233,7 @@ Hi-Tech DT 팀, Data Labs, ICT기술센터, SK 텔레콤
 
 #### One size fits all?
 <span style="font-size:14pt">
-  
+
 - RDBMS
 - Distributed File System
 - Object Storage
@@ -247,7 +248,7 @@ Hi-Tech DT 팀, Data Labs, ICT기술센터, SK 텔레콤
 ---
 ### Analytics / SQL / Dashboard & etc.
 <span style="font-size:14pt">
-  
+
 - Data Applications
   - API
 - Querying Data
@@ -393,7 +394,7 @@ https://www.confluent.io/blog/using-apache-kafka-drive-cutting-edge-machine-lear
 ---
 #### OSS for Data Store
 <span style="font-size:18pt">
-  
+
 - RDBMS
 - Distributed File System
   - Hadoop HDFS
@@ -458,7 +459,7 @@ https://www.confluent.io/blog/using-apache-kafka-drive-cutting-edge-machine-lear
 ---
 ## Stream analytics @ Public Cloud
 <span style="font-size:20pt">
-  
+
 - AWS
   - https://aws.amazon.com/ko/streaming-data/
 - MS Azure
@@ -660,7 +661,7 @@ Download https://github.com/youngwookim/skbdc-bda-2019/archive/master.zip or htt
 ---
 ### Apache Flink
 <span style="font-size:14pt">
-  
+
 > Apache Flink is a framework and distributed processing engine for ==stateful computations over unbounded and bounded data streams==. Flink has been designed to run in all common cluster environments, perform computations at in-memory speed and at any scale.
 
 </span>
@@ -677,7 +678,7 @@ Download https://github.com/youngwookim/skbdc-bda-2019/archive/master.zip or htt
 ---
 ### Presto (a.k.a PrestoSQL)
 <span style="font-size:14pt">
-  
+
 > Presto is an open source ==distributed SQL query engine== for running interactive analytic queries against data sources of all sizes ranging from gigabytes to petabytes.
 - http://prestosql.io
 
@@ -688,7 +689,7 @@ Download https://github.com/youngwookim/skbdc-bda-2019/archive/master.zip or htt
 ---
 ### Metatron Discovery
 <span style="font-size:18pt">
-  
+
 - Intro. Metatron Discovery
   - https://www.youtube.com/channel/UC5IdHK8qBiN9zVgD7SvO41g
 
@@ -767,7 +768,7 @@ $ docker run --net docker_default -it --entrypoint=/bin/sh minio/mc
 ##### Edit `~/.mc/config.json`:
 
 <span style="font-size:14pt">
-  
+
 *labs/minio/mc/config.json 참고*
 ```json
 / # vi ~/.mc/config.json
@@ -786,7 +787,7 @@ $ docker run --net docker_default -it --entrypoint=/bin/sh minio/mc
 [2019-06-24 05:34:07 UTC]      0B customer-data-json/
 [2019-06-24 05:34:07 UTC]      0B customer-data-text/
 [2019-06-24 05:34:07 UTC]      0B data/
-/ # 
+/ #
 ```
 
 </span>
@@ -795,7 +796,7 @@ $ docker run --net docker_default -it --entrypoint=/bin/sh minio/mc
 ---
 ##### Services
 <span style="font-size:18pt">
-  
+
 - Single Zookeeper: $DOCKER_HOST_IP:2181
 - Single Kafka: $DOCKER_HOST_IP:9092
 - Kafka Schema Registry: $DOCKER_HOST_IP:18081
@@ -867,8 +868,8 @@ kafka-topics --zookeeper zoo1:2181 --list
 ---
 ##### `bin` scripts for Kafka
 <span style="font-size:14pt">
-  
-  
+
+
 ```bash
 $ export KAFKA_BROKER=$(docker ps --filter name=kafka1 --format={{.ID}})
 $ docker exec -t -i "$KAFKA_BROKER" bash -l
@@ -950,7 +951,7 @@ $ java -jar shared-kafka-admin-micro-*.jar --spring.profiles.active=kadmin,local
 ---
 ##### Sanity check using kadmin
 <span style="font-size:14pt">
-  
+
 - Browse `kadmin` web, http://localhost:9090/kadmin/
 - Create Kafka topics
 ```bash
@@ -994,7 +995,7 @@ Browse kafka-manager web:
 
 ##### How to add 'Local' cluster:
 <span style="font-size:14pt">
-  
+
 - Cluster > `Add Cluster`
 - Cluster Name: `DEV`
 - Cluster Zookeeper Hosts: `zoo1:2181`
@@ -1061,7 +1062,7 @@ Browse kafka-manager web:
 </span>
 
 <span style="font-size:12pt">
-  
+
 E.g., Quote Request:
 ```java
 final IEXCloudClient iexTradingClient = IEXTradingClient.create(IEXTradingApiVersion.IEX_CLOUD_BETA_SANDBOX,
@@ -1081,10 +1082,10 @@ System.out.println(quote);
 </span>
 
 ---
-##### IEX Cloud API, `Quote` 
+##### IEX Cloud API, `Quote`
 ##### 주식 시세
 <span style="font-size:14pt">
-  
+
 - https://iexcloud.io/docs/api/#quote
 - https://github.com/WojciechZankowski/iextrading4j/blob/master/iextrading4j-api/src/main/java/pl/zankowski/iextrading4j/api/stocks/Quote.java
 
@@ -1092,7 +1093,7 @@ System.out.println(quote);
 
 ##### Test for IEX Trading API
 <span style="font-size:14pt">
-  
+
 ```bash
 $ cd labs/iextrading-test
 $ ./mvnw clean package
@@ -1275,7 +1276,7 @@ $ bin/flink run examples/batch/WordCount.jar \
 
 ##### Flink Dashboard:
 <span style="font-size:14pt">
-  
+
 - http://localhost:8081
 
 </span>
@@ -1333,7 +1334,7 @@ $ bin/flink run ../../flink-kafka-streaming/target/flink-kafka-streaming-1.0.0.j
 ---
 ##### Logs & output
 <span style="font-size:14pt">
-  
+
 - Logs & STDOUT:
   - log/flink-...log
   - log/flink-...out
@@ -1343,7 +1344,7 @@ $ bin/flink run ../../flink-kafka-streaming/target/flink-kafka-streaming-1.0.0.j
 
 - Output file(object) from Flink Streaming Application
 
-  
+
 ```bash
 # mc cat local/iextrading/filtered/YYYY-MM-DD/[part file]
 
@@ -1359,7 +1360,7 @@ E.g.,
 ### Kafka Streams 'filter' Application
 
 <span style="font-size:14pt">
-  
+
 - Kafka `iextrading_filtered` topic -> Kafka Streams (filter) -> Kafka `iextrading_filtered`
 
 </span>
@@ -1370,8 +1371,9 @@ E.g.,
 ```bash
 $ export KAFKA_BROKER=$(docker ps --filter name=kafka1 --format={{.ID}})
 $ docker exec -t -i "$KAFKA_BROKER" \
-kafka-topics --create --topic iextrading_filtered --partitions 4 --replication-factor 1 \
---if-not-exists --zookeeper zoo1:2181
+  kafka-topics --create --topic iextrading_filtered \
+  --partitions 4 --replication-factor 1 \
+  --if-not-exists --zookeeper zoo1:2181
 ```
 </span>
 
@@ -1409,7 +1411,7 @@ $ docker exec -t -i "$KAFKA_SR" \
 ## Streaming Data Integration
 
 <span style="font-size:14pt">
-  
+
 - Apache Kafka - 'iextrading_filtered' topic -> Kafka Streams -> RDBMS(MySQL)
 
 </span>
@@ -1418,7 +1420,8 @@ $ docker exec -t -i "$KAFKA_SR" \
 <span style="font-size:14pt">
 
 ```bash
-$ docker run -d --name mysql1 --network docker_default -p 3306:3306 -e MYSQL_ROOT_PASSWORD=mypasswd -d mysql:5.7
+$ docker run -d --name mysql1 --network docker_default -p 3306:3306 \
+  -e MYSQL_ROOT_PASSWORD=mypasswd -d mysql:5.7
 
 ```
 </span>
@@ -1427,7 +1430,8 @@ $ docker run -d --name mysql1 --network docker_default -p 3306:3306 -e MYSQL_ROO
 <span style="font-size:14pt">
 
 ```bash
-$ docker run -it --network docker_default --rm mysql mysql -hmysql1 -uroot -pmypasswd
+$ docker run -it --network docker_default --rm mysql mysql \
+  -hmysql1 -uroot -pmypasswd
 
 ```
 
@@ -1461,7 +1465,7 @@ mysql> CREATE DATABASE stock;
 mysql> USE stock;
 
 mysql> CREATE TABLE iextrading_filtered
-( 
+(
   ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP PRIMARY KEY,
   symbol varchar(10),
   company_name varchar(100),
@@ -1501,7 +1505,8 @@ com.example.KafkaStreamsProcessor
 <span style="font-size:14pt">
 
 ```bash
-$ docker run -it --network docker_default --rm mysql mysql -hmysql1 -uroot -pmypasswd
+$ docker run -it --network docker_default --rm mysql mysql \
+  -hmysql1 -uroot -pmypasswd
 ```
 ```sql
 mysql> USE stock;
@@ -1594,12 +1599,12 @@ presto> CREATE TABLE minio.default.wordcount (line varchar)
           external_location = 's3a://test/wordcount/'
         );
 
-presto> SELECT split(line, ' ')[1] as word, split(line, ' ')[2] as cnt 
+presto> SELECT split(line, ' ')[1] as word, split(line, ' ')[2] as cnt
         FROM minio.default.wordcount;
 ```
 ```sql
-presto> CREATE VIEW minio.default.v_wordcount 
-        AS SELECT split(line, ' ')[1] AS word, split(line, ' ')[2] AS cnt 
+presto> CREATE VIEW minio.default.v_wordcount
+        AS SELECT split(line, ' ')[1] AS word, split(line, ' ')[2] AS cnt
            FROM minio.default.wordcount;
 
 presto> CREATE TABLE minio.skbdc.wordcount_top100
@@ -1638,7 +1643,7 @@ presto> CREATE TABLE minio.default.iextrading_filtered (
 presto> SELECT * FROM minio.default.iextrading_filtered;
 
 presto> CREATE TABLE minio.skbdc.stock_2019
-        AS SELECT from_unixtime(uts) AS ts, symbol, latest_price 
+        AS SELECT from_unixtime(uts) AS ts, symbol, latest_price
            FROM minio.default.iextrading_filtered;
 
 ```
@@ -1650,7 +1655,7 @@ presto> CREATE TABLE minio.skbdc.stock_2019
 ## Data Analytics    
 ##### Building ==JupyterLab== Docker image
 <span style="font-size:14pt">
-  
+
 https://github.com/youngwookim/my-docker-stacks
 - JupyterLab
   - JupyterLab is the next-generation web-based user interface for Project Jupyter.
@@ -1670,7 +1675,9 @@ $ docker build --rm -t youngwookim/my-datascience-notebook .
 
 ```bash
 $ cd labs
-$ docker run --rm --network docker_default --user root -p 8888:8888 -e GRANT_SUDO=yes -e JUPYTER_ENABLE_LAB=yes -v "$PWD":/home/jovyan youngwookim/my-datascience-notebook:latest
+$ docker run --rm --network docker_default --user root -p 8888:8888 \
+-e GRANT_SUDO=yes -e JUPYTER_ENABLE_LAB=yes \
+-v "$PWD":/home/jovyan youngwookim/my-datascience-notebook:latest
 
 ......
 
@@ -1688,16 +1695,16 @@ http://localhost:8888/?token=42a319245ef11fc8b5fbae2480fd3b3da557489b05f4f357
 ---
 ##### Crunching S3 data with Jupyter Notebook
 <span style="font-size:14pt">
-  
+
   - [labs/notebooks/minio-s3-python-pandas.ipynb](labs/notebooks/minio-s3-python-pandas.ipynb)
 
 </span>
 
 ##### Visualization MySQL data in Jupyter Notebook
 <span style="font-size:14pt">
-  
+
 - Plotting data using python(pandas, pymysql, matplotlib) on Jupyter Notebook:
-  
+
   - [labs/notebooks/kafka-mysql-pandas-plot.ipynb](labs/notebooks/kafka-mysql-pandas-plot.ipynb)
 
 </span>
@@ -1720,7 +1727,7 @@ http://localhost:8888/?token=42a319245ef11fc8b5fbae2480fd3b3da557489b05f4f357
 
 ```bash
 $ docker run --network docker_default -d --name superset \
--p 8088:8088 tylerfowler/superset
+  -p 8088:8088 tylerfowler/superset
 ```
 
 Browse http://localhost:8088
@@ -1729,7 +1736,7 @@ Browse http://localhost:8088
 
 ##### Login with a default username and password of:
 <span style="font-size:14pt">
-  
+
 ```text
 username: admin
 password: superset
@@ -1739,7 +1746,7 @@ password: superset
 
 ##### 데이터 소스
 <span style="font-size:14pt">
-  
+
 ```text
 presto://[HOST_IP]:8080/minio
 
@@ -1752,25 +1759,24 @@ e.g., presto://presto:8080/minio
 ### Metatron Discovery
 ##### Metatron Discovery Docker 컨테이너 실행
 <span style="font-size:14pt">
-  
+
 * https://metatron.app/download/installation-guide-docker/
 
 ```bash
 $ cd labs
-$ docker run  -i -d --rm -m 6G \
---network docker_default \
--p 8180:8180 \
---name metatron-discovery metatronapp/discovery:latest
+$ docker run  -i -d --rm -m 6G --network docker_default \
+  -p 8180:8180 \
+  --name metatron-discovery metatronapp/discovery:latest
 
 ```
 
 ##### Browse metatron discovery:
-  
+
 - http://localhost:8180
 
 
 ##### Login with a default username and password of:
-  
+
 ```text
 username: admin
 password: admin
