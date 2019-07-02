@@ -1,6 +1,3 @@
-See https://github.com/docker-flink/docker-flink/tree/master/1.8/scala_2.11-debian
+https://github.com/docker-flink/docker-flink
 
-```
-$ docker build -t "flink" .
-
-```
+https://github.com/apache/flink/tree/master/flink-contrib/docker-flink

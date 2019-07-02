@@ -52,3 +52,5 @@ Refs.
 - https://github.com/gettyimages/docker-spark
 - https://hadoop.apache.org/docs/r3.2.0/hadoop-aws/tools/hadoop-aws/index.html
 - https://github.com/gettyimages/docker-spark
+- https://github.com/opencore/kafka-spark-avro-example
+- https://github.com/AbsaOSS/ABRiS
