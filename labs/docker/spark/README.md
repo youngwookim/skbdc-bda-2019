@@ -51,3 +51,4 @@ Refs.
 - https://github.com/minio/cookbook/blob/master/docs/apache-spark-with-minio.md
 - https://github.com/gettyimages/docker-spark
 - https://hadoop.apache.org/docs/r3.2.0/hadoop-aws/tools/hadoop-aws/index.html
+- https://github.com/gettyimages/docker-spark
