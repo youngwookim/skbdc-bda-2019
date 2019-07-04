@@ -269,7 +269,7 @@ Hi-Tech DT 팀, Data Labs, ICT기술센터, SK 텔레콤
 ### OSS for Streaming Data Platform
 
 ---
-#### Components of a `Streaming Data Architecture` (again!)
+### Components of a `Streaming Data Architecture` (again!)
 
 ![100% center](https://docs.microsoft.com/en-us/azure/architecture/data-guide/big-data/images/big-data-pipeline.png)
 
@@ -286,7 +286,7 @@ Hi-Tech DT 팀, Data Labs, ICT기술센터, SK 텔레콤
 :arrow_right: ......
 
 ---
-#### OSS for Data Source & Data Acquisition
+### OSS for Data Source & Data Acquisition
 - Apache Flume
 - Apache Gobblin
 - Kafka Connect
@@ -295,9 +295,9 @@ Hi-Tech DT 팀, Data Labs, ICT기술센터, SK 텔레콤
 - Data Integration tools...
 
 ---
-#### OSS for Message Broker / Enterprise Event Hub
+### OSS for Message Broker / Enterprise Event Hub
 - ==Apache Kafka==
-- Apache Pulsar
+- ==Apache Pulsar==
 - RabbitMQ
 - Apache ActiveMQ
 - Apache Qpid
@@ -305,7 +305,7 @@ Hi-Tech DT 팀, Data Labs, ICT기술센터, SK 텔레콤
 - ZeroMQ
 
 ---
-#### Apache Kafka
+### Apache Kafka
 - https://kafka.apache.org/
 - High performance pub/sub messaging system
   - Broker
@@ -321,7 +321,7 @@ Hi-Tech DT 팀, Data Labs, ICT기술센터, SK 텔레콤
   - Consumer Group
 
 ---
-#### Apache Kafka :question: Confluent Platform :question: :confused:
+### Apache Kafka :question: Confluent Platform :question: :confused:
 
 ---
 #### Apache Kafka: Schema Management
@@ -379,6 +379,33 @@ https://www.confluent.io/blog/using-apache-kafka-drive-cutting-edge-machine-lear
 </span>
 
 ---
+### Apache Pulsar
+
+<span style="font-size:14pt">
+  
+Two-Layer Architecture:
+- Stateless broker layer
+- Stateful persistence layer
+
+</span>
+
+![80% center](https://pulsar.apache.org/docs/assets/pulsar-system-architecture.png)
+
+
+---
+### Components of Apache Pulsar
+- Pulsar Cluster (one or more **brokers**)
+- Apache Bookeeper
+- Pulsar Functions
+- Pulsar IO
+- Pulsar SQL
+- Schema Registry
+
+---
+### Kafka vs Pulsar
+
+
+---
 #### OSS for Stream Processing
 - Kafka client for Java, Scala, Python, Go, etc...
 - Apache Spark
@@ -388,6 +415,7 @@ https://www.confluent.io/blog/using-apache-kafka-drive-cutting-edge-machine-lear
 - Apache Heron
 - Apache Samza
 - Apache Beam
+- Apache Bahir
 - ......
 
 
@@ -1430,7 +1458,7 @@ $ export SPARK=$(docker ps --filter name=spark1 --format={{.ID}})
 $ docker cp core-site.xml "$SPARK":/usr/hadoop-3.0.0/etc/hadoop/core-site.xml
 ```
 
-```
+```bash
 # export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 # export SPARK_HOME=/usr/spark-2.4.1
 # export PATH=$PATH:$SPARK_HOME/bin
@@ -1441,7 +1469,7 @@ $ docker cp core-site.xml "$SPARK":/usr/hadoop-3.0.0/etc/hadoop/core-site.xml
 # export SPARK_DIST_CLASSPATH=$(hadoop classpath)
 ```
 
-```
+```bash
 # cd /usr/spark-2.4.1
 # bin/spark-shell --master local[4]
 ```
@@ -1452,7 +1480,7 @@ $ docker cp core-site.xml "$SPARK":/usr/hadoop-3.0.0/etc/hadoop/core-site.xml
 ##### Reading a text file from Minio(S3)
 <span style="font-size:14pt">
   
-```
+```scala
 scala> val b1 = sc.textFile("s3a://data/gutenberg/4300-0.txt")
 scala> b1.collect().foreach(println)
 ```
@@ -1462,7 +1490,7 @@ scala> b1.collect().foreach(println)
 ##### Word Count
 <span style="font-size:14pt">
   
-```
+```scala
 scala> val textFile = sc.textFile("s3a://data/gutenberg/4300-0.txt")
 scala> val counts = textFile.flatMap(line => line.split(" ")).map(word => (word, 1)).reduceByKey(_ + _)
 scala> counts.saveAsTextFile("s3a://test/wc/result")
@@ -1769,21 +1797,17 @@ presto> CREATE TABLE minio.skbdc.stock_2019
 
 ---
 ## Data Analytics    
-##### Building ==JupyterLab== Docker image
+##### ==JupyterLab==
 <span style="font-size:14pt">
 
-https://github.com/youngwookim/my-docker-stacks
 - JupyterLab
   - JupyterLab is the next-generation web-based user interface for Project Jupyter.
 - Python modules... boto3, pymysql, pandas, etc.
 
-```bash
-$ cd /path/to/workspace
-$ git clone https://github.com/youngwookim/my-docker-stacks.git
-$ cd my-docker-stacks
-$ cd jupyter-ds
-$ docker build --rm -t youngwookim/my-datascience-notebook .
-```
+Refs.
+- https://github.com/jupyterlab/jupyterlab
+- https://github.com/youngwookim/my-docker-stacks
+
 </span>
 
 ##### Running JupyterLab via Docker:
@@ -1919,6 +1943,7 @@ password: admin
 - https://prestosql.io/
 - https://min.io/
 - https://github.com/jupyterlab/jupyterlab
+- https://jack-vanlightly.com/blog/2018/10/2/understanding-how-apache-pulsar-works
 
 </span>
 
