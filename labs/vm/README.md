@@ -1,7 +1,8 @@
-Prerequisites
+## Prerequisites
 - VirtualBox, https://www.virtualbox.org
 - Vagrant, https://www.vagrantup.com/
 
+## Starting the VM
 ```
 $ cd /path/to/vm
 $ ls -als
@@ -16,4 +17,9 @@ vagrant@vagrant-VirtualBox:~$ ls -als /labs
 vagrant@vagrant-VirtualBox:~$ cd /path/to/labs/docker
 vagrant@vagrant-VirtualBox:~$ sudo docker-compose up
 
+```
+
+## Shutting down the VM
+```
+$ vagrant halt
 ```
