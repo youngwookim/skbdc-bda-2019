@@ -383,14 +383,17 @@ https://www.confluent.io/blog/using-apache-kafka-drive-cutting-edge-machine-lear
 
 <span style="font-size:14pt">
   
-Two-Layer Architecture:
-- Stateless broker layer
-- Stateful persistence layer
+Two-Layer Architecture: ==Stateless broker layer== + ==Stateful persistence layer==
 
 </span>
 
-![80% center](https://pulsar.apache.org/docs/assets/pulsar-system-architecture.png)
+![60% center](https://pulsar.apache.org/docs/assets/pulsar-system-architecture.png)
 
+<span style="font-size:14pt">
+  
+[Apache Pulsar Architecture: Designing for Streaming Performance and Scalability](https://streaml.io/blog/apache-pulsar-architecture-designing-for-streaming-performance-and-scalability)
+
+</span>
 
 ---
 ### Components of Apache Pulsar
@@ -1330,8 +1333,18 @@ $ bin/flink run examples/batch/WordCount.jar \
 
 - Trading(Quote) API -> Kafka Producer -> Kafka -> Flink Streaming -> Minio(S3)
 
+![80% center](https://cdn-images-1.medium.com/max/1600/0*UtEIiV5HlOUvCCgT)
+
+<br>
+
+| **Event Producer** | **Messaging Service** | **Stream Processing Job** | **Sink** |
+| ---- | ---- | ---- | ---- |
+| kafka-message-gen | Apache Kafka | Flink Streaming Application | Flink StreamingFileSink(S3) |
+
+
 </span>
 
+---
 ##### Builing Flink Kafka application
 <span style="font-size:14pt">
 
@@ -1355,12 +1368,13 @@ $ bin/flink run ../../flink-kafka-streaming/target/flink-kafka-streaming-1.0.0.j
 --bootstrap.servers localhost:9092 \
 --schema-registry-url http://localhost:18081 \
 --group.id cgrp1
+
 ```
 
 </span>
 
 ---
-##### Logs & output
+##### Flink Logs & outputs
 <span style="font-size:14pt">
 
 - Logs & STDOUT:
@@ -1372,11 +1386,11 @@ $ bin/flink run ../../flink-kafka-streaming/target/flink-kafka-streaming-1.0.0.j
 
 - Output file(object) from Flink Streaming Application
 
-
 ```bash
 # mc cat local/iextrading/filtered/YYYY-MM-DD/[part file]
 
 E.g.,
+
 # mc cat local/iextrading/filtered/2019-06-18/part-0-0
 
 ```
@@ -1509,7 +1523,7 @@ scala> counts.saveAsTextFile("s3a://test/wc/result")
 ##### Building Spark straming application
 <span style="font-size:14pt">
   
-```
+```bash
 $ cd labs/spark-kafka-streaming
 $ mvn clean package
 ```
@@ -1520,7 +1534,7 @@ $ mvn clean package
 
 <span style="font-size:14pt">
   
-```
+```bash
 # export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 # export SPARK_HOME=/usr/spark-2.4.1
 # export PATH=$PATH:$SPARK_HOME/bin
@@ -1530,7 +1544,7 @@ $ mvn clean package
 # export HADOOP_OPTIONAL_TOOLS="hadoop-aws"
 # export SPARK_DIST_CLASSPATH=$(hadoop classpath)
 ```
-```
+```bash
 # cd $SPARK_HOME
 # bin/spark-submit --master local[4] spark-kafka-streaming-1.0.0-jar-with-dependencies.jar
 ```
@@ -1965,6 +1979,7 @@ password: admin
 - https://www.talend.com/blog/2017/08/28/lambda-kappa-real-time-big-data-architectures/
 - https://www.oreilly.com/ideas/applying-the-kappa-architecture-in-the-telco-industry
 - https://www.starburstdata.com/learn-presto/reference-architectures/
+- https://medium.com/netflix-techblog/keystone-real-time-stream-processing-platform-a3ee651812a
 
 </span>
 
