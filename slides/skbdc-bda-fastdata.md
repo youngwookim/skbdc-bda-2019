@@ -1339,7 +1339,7 @@ $ bin/flink run examples/batch/WordCount.jar \
 
 | **Event Producer** | **Messaging Service** | **Stream Processing Job** | **Sink** |
 | ---- | ---- | ---- | ---- |
-| kafka-message-gen | Apache Kafka | Flink Streaming Application | Flink StreamingFileSink(S3) |
+| kafka-message-gen | Apache Kafka | Flink Streaming Application | Minio (S3 Compatible) |
 
 
 </span>
