@@ -1,3 +1,12 @@
-https://github.com/docker-flink/docker-flink
+```
+./build.sh --from-release --flink-version <x.x.x> --scala-version <x.xx> --hadoop-version <x.x> [--image-name <image>]
 
-https://github.com/apache/flink/tree/master/flink-contrib/docker-flink
+E.g.,
+
+./build.sh --from-release --flink-version 1.8.1 --scala-version 2.11 --hadoop-version 2.8 --image-name flink-s3-local
+```
+
+Running Flink local cluster:
+```
+docker run -i -d -t --net docker_default flink-s3-local
+```
