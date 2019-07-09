@@ -56,8 +56,8 @@ Hi-Tech DT 팀, Data Labs, ICT기술센터, SK 텔레콤
 ![100% center](https://www.attunity.com/wp-content/uploads/2017/04/1-2-Mainframe.png)
 
 ---
-## Big Data & AI Landscape
-![fit center](http://mattturck.com/wp-content/uploads/2018/07/Matt_Turck_FirstMark_Big_Data_Landscape_2018_Final.png)
+## Data & AI Landscape
+![fit center](http://mattturck.com/wp-content/uploads/2019/07/2019_Matt_Turck_Big_Data_Landscape_2019v2_Fullsize.png)
 
 ---
 ## Data Warehousing & Business Intelligence
@@ -1943,6 +1943,8 @@ password: admin
 # 참고
 <span style="font-size:14pt">
 
+- https://mattturck.com/data2019/
+- https://mattturck.com/2019trends/
 - https://docs.microsoft.com/en-us/azure/architecture/data-guide/big-data/
 - https://cdn.oreillystatic.com/en/assets/1/event/278/Architecting%20a%20next-generation%20data%20platform%20Presentation%203.pdf
 - https://www.slideshare.net/arunkejariwal/designing-modern-streaming-data-applications-115037555
@@ -1965,7 +1967,7 @@ password: admin
 # Image Credits
 <span style="font-size:14pt">
 
-- https://mattturck.com/bigdata2018/
+- https://mattturck.com/data2019/
 - https://www.thoughtworks.com/insights/blog/agile-data-warehousing-and-business-intelligence-action
 - http://insight360.com/big-data/data-stores/
 - https://en.wikipedia.org/wiki/Apache_Kafka
