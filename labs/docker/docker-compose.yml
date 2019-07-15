@@ -85,7 +85,7 @@ services:
     image: minio/minio
     container_name: minio
     ports:
-      - '9001:9000'
+      - '9000:9000'
     volumes:
       - './minio/data/:/data'
       - './minio/config:/root/.minio'
