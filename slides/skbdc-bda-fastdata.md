@@ -677,7 +677,7 @@ Download https://github.com/youngwookim/skbdc-bda-2019/archive/master.zip or htt
 - Apache Kafka 2.0.0
 - Kafka Schema Registry 5.0.0 (confluent)
 - Kafka Schema Registry UI 0.9.4
-- Apache Flink 1.8.0
+- Apache Flink 1.8.1
 - Presto 302
 - Minio
 - Apache Avro 1.8.2
@@ -1189,7 +1189,7 @@ $ java -jar target/kafka-message-gen-1.0.0.jar
 
 ```bash
 $ cd labs/flink-local
-$ wget http://mirror.apache-kr.org/flink/flink-1.8.0/flink-1.8.0-bin-scala_2.11.tgz
+$ wget http://mirror.apache-kr.org/flink/flink-1.8.1/flink-1.8.1-bin-scala_2.11.tgz
 
 ```
 
@@ -1237,7 +1237,7 @@ s3.secret-key: bKhWxVF3kQoLY9kFmt91l+tDrEoZjqnWXzY9Eza
 
 - flink-s3-fs-hadoop
 ```
-$ cp opt/flink-s3-fs-hadoop-1.8.0.jar lib/
+$ cp opt/flink-s3-fs-hadoop-1.8.1.jar lib/
 ```
 - flink-shaded-hadoop
   - [flink-shaded-hadoop-2-uber-2.8.3-7.0.jar](https://repo.maven.apache.org/maven2/org/apache/flink/flink-shaded-hadoop-2-uber/2.8.3-7.0/flink-shaded-hadoop-2-uber-2.8.3-7.0.jar)

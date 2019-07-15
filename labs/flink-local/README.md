@@ -3,7 +3,7 @@ https://ci.apache.org/projects/flink/flink-docs-stable/tutorials/local_setup.htm
 1. Download Flink tarball
 
 ```
-wget http://mirror.apache-kr.org/flink/flink-1.8.0/flink-1.8.0-bin-scala_2.11.tgz
+wget http://mirror.apache-kr.org/flink/flink-1.8.1/flink-1.8.1-bin-scala_2.11.tgz
 
 ```
 
@@ -20,7 +20,7 @@ s3.secret-key: bKhWxVF3kQoLY9kFmt91l+tDrEoZjqnWXzY9Eza
 Copy required jars into 'lib' directory
 - flink-s3-fs-hadoop
 ```
-$ cp opt/flink-s3-fs-hadoop-1.8.0.jar lib/
+$ cp opt/flink-s3-fs-hadoop-1.8.1.jar lib/
 
 ```
 - link-shaded-hadoop
@@ -43,7 +43,7 @@ $ bin/flink run /path/to/flink-kafka-streaming-1.0.0.jar \
 --input-topic iextrading \
 --output-topic mystock \
 --output-path s3://trading/mystock/ \
---bootstrap.servers 172.16.0.68:9092 \
---schema-registry-url http://172.16.0.68:8081 \
+--bootstrap.servers localhost:9092 \
+--schema-registry-url http://localhost:8081 \
 --group.id cgrp1
 ```
