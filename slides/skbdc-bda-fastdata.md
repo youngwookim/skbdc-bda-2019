@@ -1450,7 +1450,7 @@ $ docker exec -t -i "$KAFKA_SR" \
 </span>
 
 ---
-### Stream Processing with Apache Spark
+### Stream Data Processing with Apache Spark
 
 ##### Running ==Spark== docker container
 <span style="font-size:14pt">
