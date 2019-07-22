@@ -290,6 +290,7 @@ Hi-Tech DT 팀, Data Labs, ICT기술센터, SK 텔레콤
 - Apache Flume
 - Apache Gobblin
 - Kafka Connect
+- Brooklin
 - Fluentd
 - Logstash
 - Data Integration tools...
